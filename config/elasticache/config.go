@@ -17,7 +17,7 @@ limitations under the License.
 package elasticache
 
 import (
-	"github.com/crossplane/terrajet/pkg/config"
+	"github.com/upbound/upjet/pkg/config"
 
 	"github.com/crossplane-contrib/provider-jet-aws/config/common"
 )
@@ -74,9 +74,9 @@ func Configure(p *config.Provider) {
 				Type: "SubnetGroup",
 			},
 			"security_group_ids": config.Reference{
-				Type:              "github.com/crossplane-contrib/provider-jet-aws/apis/ec2/v1alpha2.SecurityGroup",
-				RefFieldName:      "SecurityGroupIdRefs",
-				SelectorFieldName: "SecurityGroupIdSelector",
+				Type: "github.com/crossplane-contrib/provider-jet-aws/apis/ec2/v1alpha2.SecurityGroup",
+				//RefFieldName:      "SecurityGroupIdRefs",
+				//SelectorFieldName: "SecurityGroupIdSelector",
 			},
 			"kms_key_id": {
 				Type: "github.com/crossplane-contrib/provider-jet-aws/apis/kms/v1alpha2.Key",
@@ -122,9 +122,9 @@ func Configure(p *config.Provider) {
 		}
 		r.References = config.References{
 			"user_ids": config.Reference{
-				Type:              "User",
-				RefFieldName:      "UserIdRefs",
-				SelectorFieldName: "UserIdSelector",
+				Type: "User",
+				//RefFieldName:      "UserIdRefs",
+				//SelectorFieldName: "UserIdSelector",
 			},
 		}
 	})

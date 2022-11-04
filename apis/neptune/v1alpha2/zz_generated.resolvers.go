@@ -19,9 +19,8 @@ package v1alpha2
 
 import (
 	"context"
-	v1alpha22 "github.com/crossplane-contrib/provider-jet-aws/apis/ec2/v1alpha2"
+	v1alpha21 "github.com/crossplane-contrib/provider-jet-aws/apis/ec2/v1alpha2"
 	v1alpha2 "github.com/crossplane-contrib/provider-jet-aws/apis/iam/v1alpha2"
-	v1alpha21 "github.com/crossplane-contrib/provider-jet-aws/apis/kms/v1alpha2"
 	reference "github.com/crossplane/crossplane-runtime/pkg/reference"
 	errors "github.com/pkg/errors"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
@@ -38,8 +37,8 @@ func (mg *Cluster) ResolveReferences(ctx context.Context, c client.Reader) error
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.IAMRoles),
 		Extract:       reference.ExternalName(),
-		References:    mg.Spec.ForProvider.IAMRoleIdRefs,
-		Selector:      mg.Spec.ForProvider.IAMRoleIdSelector,
+		References:    mg.Spec.ForProvider.IAMRolesRefs,
+		Selector:      mg.Spec.ForProvider.IAMRolesSelector,
 		To: reference.To{
 			List:    &v1alpha2.RoleList{},
 			Managed: &v1alpha2.Role{},
@@ -49,23 +48,7 @@ func (mg *Cluster) ResolveReferences(ctx context.Context, c client.Reader) error
 		return errors.Wrap(err, "mg.Spec.ForProvider.IAMRoles")
 	}
 	mg.Spec.ForProvider.IAMRoles = reference.ToPtrValues(mrsp.ResolvedValues)
-	mg.Spec.ForProvider.IAMRoleIdRefs = mrsp.ResolvedReferences
-
-	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.KMSKeyArn),
-		Extract:      reference.ExternalName(),
-		Reference:    mg.Spec.ForProvider.KMSKeyArnRef,
-		Selector:     mg.Spec.ForProvider.KMSKeyArnSelector,
-		To: reference.To{
-			List:    &v1alpha21.KeyList{},
-			Managed: &v1alpha21.Key{},
-		},
-	})
-	if err != nil {
-		return errors.Wrap(err, "mg.Spec.ForProvider.KMSKeyArn")
-	}
-	mg.Spec.ForProvider.KMSKeyArn = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.KMSKeyArnRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.IAMRolesRefs = mrsp.ResolvedReferences
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.NeptuneClusterParameterGroupName),
@@ -130,22 +113,6 @@ func (mg *Cluster) ResolveReferences(ctx context.Context, c client.Reader) error
 	}
 	mg.Spec.ForProvider.SnapshotIdentifier = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.SnapshotIdentifierRef = rsp.ResolvedReference
-
-	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
-		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.VPCSecurityGroupIds),
-		Extract:       reference.ExternalName(),
-		References:    mg.Spec.ForProvider.VPCSecurityGroupIdRefs,
-		Selector:      mg.Spec.ForProvider.VPCSecurityGroupIdSelector,
-		To: reference.To{
-			List:    &v1alpha22.SecurityGroupList{},
-			Managed: &v1alpha22.SecurityGroup{},
-		},
-	})
-	if err != nil {
-		return errors.Wrap(err, "mg.Spec.ForProvider.VPCSecurityGroupIds")
-	}
-	mg.Spec.ForProvider.VPCSecurityGroupIds = reference.ToPtrValues(mrsp.ResolvedValues)
-	mg.Spec.ForProvider.VPCSecurityGroupIdRefs = mrsp.ResolvedReferences
 
 	return nil
 }
@@ -270,18 +237,18 @@ func (mg *SubnetGroup) ResolveReferences(ctx context.Context, c client.Reader) e
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.SubnetIds),
 		Extract:       reference.ExternalName(),
-		References:    mg.Spec.ForProvider.SubnetIdRefs,
-		Selector:      mg.Spec.ForProvider.SubnetIdSelector,
+		References:    mg.Spec.ForProvider.SubnetIdsRefs,
+		Selector:      mg.Spec.ForProvider.SubnetIdsSelector,
 		To: reference.To{
-			List:    &v1alpha22.SubnetList{},
-			Managed: &v1alpha22.Subnet{},
+			List:    &v1alpha21.SubnetList{},
+			Managed: &v1alpha21.Subnet{},
 		},
 	})
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.SubnetIds")
 	}
 	mg.Spec.ForProvider.SubnetIds = reference.ToPtrValues(mrsp.ResolvedValues)
-	mg.Spec.ForProvider.SubnetIdRefs = mrsp.ResolvedReferences
+	mg.Spec.ForProvider.SubnetIdsRefs = mrsp.ResolvedReferences
 
 	return nil
 }

@@ -17,7 +17,7 @@ limitations under the License.
 package ec2
 
 import (
-	"github.com/crossplane/terrajet/pkg/config"
+	"github.com/upbound/upjet/pkg/config"
 
 	"github.com/crossplane-contrib/provider-jet-aws/config/common"
 )
@@ -31,9 +31,9 @@ func Configure(p *config.Provider) {
 			Type: "Subnet",
 		}
 		r.References["vpc_security_group_ids"] = config.Reference{
-			Type:              "SecurityGroup",
-			RefFieldName:      "SecurityGroupIdRefs",
-			SelectorFieldName: "SecurityGroupIdSelector",
+			Type: "SecurityGroup",
+			//RefFieldName:      "SecurityGroupIdRefs",
+			//SelectorFieldName: "SecurityGroupIdSelector",
 		}
 		r.References["security_groups"] = config.Reference{
 			Type: "SecurityGroup",
@@ -52,7 +52,7 @@ func Configure(p *config.Provider) {
 		}
 		r.LateInitializer = config.LateInitializer{
 			// NOTE(muvaf): These are ignored because they conflict with each other.
-			// See the following for more details: https://github.com/crossplane/terrajet/issues/107
+			// See the following for more details: https://github.com/upbound/upjet/issues/107
 			IgnoredFields: []string{
 				"subnet_id",
 				"network_interface",
@@ -112,9 +112,7 @@ func Configure(p *config.Provider) {
 		r.Version = common.VersionV1Alpha2
 		r.ExternalName = config.IdentifierFromProvider
 		r.References["subnet_ids"] = config.Reference{
-			Type:              "Subnet",
-			RefFieldName:      "SubnetIdRefs",
-			SelectorFieldName: "SubnetIdSelector",
+			Type: "Subnet",
 		}
 		r.References["transit_gateway_id"] = config.Reference{
 			Type: "TransitGateway",
@@ -139,9 +137,6 @@ func Configure(p *config.Provider) {
 		}
 		r.References["vpc_security_group_ids"] = config.Reference{
 			Type: "SecurityGroup",
-
-			RefFieldName:      "VpcSecurityGroupIdRefs",
-			SelectorFieldName: "VpcSecurityGroupIdSelector",
 		}
 		r.References["block_device_mappings.ebs.kms_key_id"] = config.Reference{
 			Type: "github.com/crossplane-contrib/provider-jet-aws/apis/kms/v1alpha2.Key",
@@ -175,19 +170,15 @@ func Configure(p *config.Provider) {
 		r.Version = common.VersionV1Alpha2
 		r.ExternalName = config.IdentifierFromProvider
 		r.References["subnet_ids"] = config.Reference{
-			Type:              "Subnet",
-			RefFieldName:      "SubnetIdRefs",
-			SelectorFieldName: "SubnetIdSelector",
+			Type: "Subnet",
+			// RefFieldName:      "SubnetIdRefs",
+			// SelectorFieldName: "SubnetIdSelector",
 		}
 		r.References["security_group_ids"] = config.Reference{
-			Type:              "SecurityGroup",
-			RefFieldName:      "SecurityGroupIdRefs",
-			SelectorFieldName: "SecurityGroupIdSelector",
+			Type: "SecurityGroup",
 		}
 		r.References["route_table_ids"] = config.Reference{
-			Type:              "RouteTable",
-			RefFieldName:      "RouteTableIdRefs",
-			SelectorFieldName: "RouteTableIdSelector",
+			Type: "RouteTable",
 		}
 	})
 
@@ -196,7 +187,7 @@ func Configure(p *config.Provider) {
 		r.ExternalName = config.IdentifierFromProvider
 		r.LateInitializer = config.LateInitializer{
 			// NOTE(muvaf): Conflicts with AvailabilityZone. See the following
-			// for more details: https://github.com/crossplane/terrajet/issues/107
+			// for more details: https://github.com/upbound/upjet/issues/107
 			IgnoredFields: []string{
 				"availability_zone_id",
 			},

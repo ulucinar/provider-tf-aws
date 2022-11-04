@@ -228,7 +228,7 @@ func (in *ClusterParameters) DeepCopyInto(out *ClusterParameters) {
 	if in.DBSubnetGroupNameRef != nil {
 		in, out := &in.DBSubnetGroupNameRef, &out.DBSubnetGroupNameRef
 		*out = new(v1.Reference)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DBSubnetGroupNameSelector != nil {
 		in, out := &in.DBSubnetGroupNameSelector, &out.DBSubnetGroupNameSelector
@@ -431,13 +431,15 @@ func (in *ClusterParameters) DeepCopyInto(out *ClusterParameters) {
 			}
 		}
 	}
-	if in.VpcSecurityGroupIdRefs != nil {
-		in, out := &in.VpcSecurityGroupIdRefs, &out.VpcSecurityGroupIdRefs
+	if in.VPCSecurityGroupIdsRefs != nil {
+		in, out := &in.VPCSecurityGroupIdsRefs, &out.VPCSecurityGroupIdsRefs
 		*out = make([]v1.Reference, len(*in))
-		copy(*out, *in)
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
-	if in.VpcSecurityGroupIdSelector != nil {
-		in, out := &in.VpcSecurityGroupIdSelector, &out.VpcSecurityGroupIdSelector
+	if in.VPCSecurityGroupIdsSelector != nil {
+		in, out := &in.VPCSecurityGroupIdsSelector, &out.VPCSecurityGroupIdsSelector
 		*out = new(v1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -489,7 +491,7 @@ func (in *ClusterRestoreToPointInTimeParameters) DeepCopyInto(out *ClusterRestor
 	if in.SourceClusterIdentifierRef != nil {
 		in, out := &in.SourceClusterIdentifierRef, &out.SourceClusterIdentifierRef
 		*out = new(v1.Reference)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.SourceClusterIdentifierSelector != nil {
 		in, out := &in.SourceClusterIdentifierSelector, &out.SourceClusterIdentifierSelector
@@ -539,7 +541,7 @@ func (in *ClusterS3ImportParameters) DeepCopyInto(out *ClusterS3ImportParameters
 	if in.BucketNameRef != nil {
 		in, out := &in.BucketNameRef, &out.BucketNameRef
 		*out = new(v1.Reference)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.BucketNameSelector != nil {
 		in, out := &in.BucketNameSelector, &out.BucketNameSelector
@@ -828,7 +830,7 @@ func (in *InstanceParameters) DeepCopyInto(out *InstanceParameters) {
 	if in.DBSubnetGroupNameRef != nil {
 		in, out := &in.DBSubnetGroupNameRef, &out.DBSubnetGroupNameRef
 		*out = new(v1.Reference)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DBSubnetGroupNameSelector != nil {
 		in, out := &in.DBSubnetGroupNameSelector, &out.DBSubnetGroupNameSelector
@@ -904,7 +906,7 @@ func (in *InstanceParameters) DeepCopyInto(out *InstanceParameters) {
 	if in.KMSKeyIDRef != nil {
 		in, out := &in.KMSKeyIDRef, &out.KMSKeyIDRef
 		*out = new(v1.Reference)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.KMSKeyIDSelector != nil {
 		in, out := &in.KMSKeyIDSelector, &out.KMSKeyIDSelector
@@ -964,7 +966,7 @@ func (in *InstanceParameters) DeepCopyInto(out *InstanceParameters) {
 	if in.ParameterGroupNameRef != nil {
 		in, out := &in.ParameterGroupNameRef, &out.ParameterGroupNameRef
 		*out = new(v1.Reference)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ParameterGroupNameSelector != nil {
 		in, out := &in.ParameterGroupNameSelector, &out.ParameterGroupNameSelector
@@ -989,7 +991,7 @@ func (in *InstanceParameters) DeepCopyInto(out *InstanceParameters) {
 	if in.PerformanceInsightsKMSKeyIDRef != nil {
 		in, out := &in.PerformanceInsightsKMSKeyIDRef, &out.PerformanceInsightsKMSKeyIDRef
 		*out = new(v1.Reference)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.PerformanceInsightsKMSKeyIDSelector != nil {
 		in, out := &in.PerformanceInsightsKMSKeyIDSelector, &out.PerformanceInsightsKMSKeyIDSelector
@@ -1043,7 +1045,9 @@ func (in *InstanceParameters) DeepCopyInto(out *InstanceParameters) {
 	if in.SecurityGroupNameRefs != nil {
 		in, out := &in.SecurityGroupNameRefs, &out.SecurityGroupNameRefs
 		*out = make([]v1.Reference, len(*in))
-		copy(*out, *in)
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SecurityGroupNameSelector != nil {
 		in, out := &in.SecurityGroupNameSelector, &out.SecurityGroupNameSelector
@@ -1117,13 +1121,15 @@ func (in *InstanceParameters) DeepCopyInto(out *InstanceParameters) {
 			}
 		}
 	}
-	if in.VpcSecurityGroupIdRefs != nil {
-		in, out := &in.VpcSecurityGroupIdRefs, &out.VpcSecurityGroupIdRefs
+	if in.VPCSecurityGroupIdsRefs != nil {
+		in, out := &in.VPCSecurityGroupIdsRefs, &out.VPCSecurityGroupIdsRefs
 		*out = make([]v1.Reference, len(*in))
-		copy(*out, *in)
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
-	if in.VpcSecurityGroupIdSelector != nil {
-		in, out := &in.VpcSecurityGroupIdSelector, &out.VpcSecurityGroupIdSelector
+	if in.VPCSecurityGroupIdsSelector != nil {
+		in, out := &in.VPCSecurityGroupIdsSelector, &out.VPCSecurityGroupIdsSelector
 		*out = new(v1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -1439,7 +1445,7 @@ func (in *RestoreToPointInTimeParameters) DeepCopyInto(out *RestoreToPointInTime
 	if in.SourceDBInstanceIdentifierRef != nil {
 		in, out := &in.SourceDBInstanceIdentifierRef, &out.SourceDBInstanceIdentifierRef
 		*out = new(v1.Reference)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.SourceDBInstanceIdentifierSelector != nil {
 		in, out := &in.SourceDBInstanceIdentifierSelector, &out.SourceDBInstanceIdentifierSelector
@@ -1494,7 +1500,7 @@ func (in *S3ImportParameters) DeepCopyInto(out *S3ImportParameters) {
 	if in.BucketNameRef != nil {
 		in, out := &in.BucketNameRef, &out.BucketNameRef
 		*out = new(v1.Reference)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.BucketNameSelector != nil {
 		in, out := &in.BucketNameSelector, &out.BucketNameSelector
@@ -1740,16 +1746,6 @@ func (in *SubnetGroupParameters) DeepCopyInto(out *SubnetGroupParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.SubnetIdRefs != nil {
-		in, out := &in.SubnetIdRefs, &out.SubnetIdRefs
-		*out = make([]v1.Reference, len(*in))
-		copy(*out, *in)
-	}
-	if in.SubnetIdSelector != nil {
-		in, out := &in.SubnetIdSelector, &out.SubnetIdSelector
-		*out = new(v1.Selector)
-		(*in).DeepCopyInto(*out)
-	}
 	if in.SubnetIds != nil {
 		in, out := &in.SubnetIds, &out.SubnetIds
 		*out = make([]*string, len(*in))
@@ -1760,6 +1756,18 @@ func (in *SubnetGroupParameters) DeepCopyInto(out *SubnetGroupParameters) {
 				**out = **in
 			}
 		}
+	}
+	if in.SubnetIdsRefs != nil {
+		in, out := &in.SubnetIdsRefs, &out.SubnetIdsRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.SubnetIdsSelector != nil {
+		in, out := &in.SubnetIdsSelector, &out.SubnetIdsSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags

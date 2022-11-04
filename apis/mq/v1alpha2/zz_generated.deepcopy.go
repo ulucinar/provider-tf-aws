@@ -236,16 +236,6 @@ func (in *BrokerParameters) DeepCopyInto(out *BrokerParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.SubnetIdRefs != nil {
-		in, out := &in.SubnetIdRefs, &out.SubnetIdRefs
-		*out = make([]v1.Reference, len(*in))
-		copy(*out, *in)
-	}
-	if in.SubnetIdSelector != nil {
-		in, out := &in.SubnetIdSelector, &out.SubnetIdSelector
-		*out = new(v1.Selector)
-		(*in).DeepCopyInto(*out)
-	}
 	if in.SubnetIds != nil {
 		in, out := &in.SubnetIds, &out.SubnetIds
 		*out = make([]*string, len(*in))
@@ -256,6 +246,18 @@ func (in *BrokerParameters) DeepCopyInto(out *BrokerParameters) {
 				**out = **in
 			}
 		}
+	}
+	if in.SubnetIdsRefs != nil {
+		in, out := &in.SubnetIdsRefs, &out.SubnetIdsRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.SubnetIdsSelector != nil {
+		in, out := &in.SubnetIdsSelector, &out.SubnetIdsSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags

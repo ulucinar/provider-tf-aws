@@ -25,32 +25,6 @@ import (
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
 
-// ResolveReferences of this Endpoint.
-func (mg *Endpoint) ResolveReferences(ctx context.Context, c client.Reader) error {
-	r := reference.NewAPIResolver(c, mg)
-
-	var mrsp reference.MultiResolutionResponse
-	var err error
-
-	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
-		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.SecurityGroupIds),
-		Extract:       reference.ExternalName(),
-		References:    mg.Spec.ForProvider.SecurityGroupIdRefs,
-		Selector:      mg.Spec.ForProvider.SecurityGroupIdSelector,
-		To: reference.To{
-			List:    &v1alpha2.SecurityGroupList{},
-			Managed: &v1alpha2.SecurityGroup{},
-		},
-	})
-	if err != nil {
-		return errors.Wrap(err, "mg.Spec.ForProvider.SecurityGroupIds")
-	}
-	mg.Spec.ForProvider.SecurityGroupIds = reference.ToPtrValues(mrsp.ResolvedValues)
-	mg.Spec.ForProvider.SecurityGroupIdRefs = mrsp.ResolvedReferences
-
-	return nil
-}
-
 // ResolveReferences of this FirewallRuleGroupAssociation.
 func (mg *FirewallRuleGroupAssociation) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPIResolver(c, mg)
@@ -61,8 +35,8 @@ func (mg *FirewallRuleGroupAssociation) ResolveReferences(ctx context.Context, c
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.VPCID),
 		Extract:      reference.ExternalName(),
-		Reference:    mg.Spec.ForProvider.VpcIdRef,
-		Selector:     mg.Spec.ForProvider.VpcIdSelector,
+		Reference:    mg.Spec.ForProvider.VPCIDRef,
+		Selector:     mg.Spec.ForProvider.VPCIDSelector,
 		To: reference.To{
 			List:    &v1alpha2.VPCList{},
 			Managed: &v1alpha2.VPC{},
@@ -72,7 +46,7 @@ func (mg *FirewallRuleGroupAssociation) ResolveReferences(ctx context.Context, c
 		return errors.Wrap(err, "mg.Spec.ForProvider.VPCID")
 	}
 	mg.Spec.ForProvider.VPCID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.VpcIdRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.VPCIDRef = rsp.ResolvedReference
 
 	return nil
 }
@@ -87,8 +61,8 @@ func (mg *RuleAssociation) ResolveReferences(ctx context.Context, c client.Reade
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.VPCID),
 		Extract:      reference.ExternalName(),
-		Reference:    mg.Spec.ForProvider.VpcIdRef,
-		Selector:     mg.Spec.ForProvider.VpcIdSelector,
+		Reference:    mg.Spec.ForProvider.VPCIDRef,
+		Selector:     mg.Spec.ForProvider.VPCIDSelector,
 		To: reference.To{
 			List:    &v1alpha2.VPCList{},
 			Managed: &v1alpha2.VPC{},
@@ -98,7 +72,7 @@ func (mg *RuleAssociation) ResolveReferences(ctx context.Context, c client.Reade
 		return errors.Wrap(err, "mg.Spec.ForProvider.VPCID")
 	}
 	mg.Spec.ForProvider.VPCID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.VpcIdRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.VPCIDRef = rsp.ResolvedReference
 
 	return nil
 }

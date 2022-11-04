@@ -196,7 +196,7 @@ func (in *AttachmentParameters) DeepCopyInto(out *AttachmentParameters) {
 	if in.ALBTargetGroupArnRef != nil {
 		in, out := &in.ALBTargetGroupArnRef, &out.ALBTargetGroupArnRef
 		*out = new(v1.Reference)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ALBTargetGroupArnSelector != nil {
 		in, out := &in.ALBTargetGroupArnSelector, &out.ALBTargetGroupArnSelector
@@ -211,7 +211,7 @@ func (in *AttachmentParameters) DeepCopyInto(out *AttachmentParameters) {
 	if in.AutoscalingGroupNameRef != nil {
 		in, out := &in.AutoscalingGroupNameRef, &out.AutoscalingGroupNameRef
 		*out = new(v1.Reference)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.AutoscalingGroupNameSelector != nil {
 		in, out := &in.AutoscalingGroupNameSelector, &out.AutoscalingGroupNameSelector
@@ -536,7 +536,7 @@ func (in *AutoscalingGroupParameters) DeepCopyInto(out *AutoscalingGroupParamete
 	if in.ServiceLinkedRoleArnRef != nil {
 		in, out := &in.ServiceLinkedRoleArnRef, &out.ServiceLinkedRoleArnRef
 		*out = new(v1.Reference)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ServiceLinkedRoleArnSelector != nil {
 		in, out := &in.ServiceLinkedRoleArnSelector, &out.ServiceLinkedRoleArnSelector
@@ -607,7 +607,9 @@ func (in *AutoscalingGroupParameters) DeepCopyInto(out *AutoscalingGroupParamete
 	if in.VPCZoneIdentifierRefs != nil {
 		in, out := &in.VPCZoneIdentifierRefs, &out.VPCZoneIdentifierRefs
 		*out = make([]v1.Reference, len(*in))
-		copy(*out, *in)
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.VPCZoneIdentifierSelector != nil {
 		in, out := &in.VPCZoneIdentifierSelector, &out.VPCZoneIdentifierSelector

@@ -19,7 +19,7 @@ package route53
 import (
 	"strings"
 
-	"github.com/crossplane/terrajet/pkg/config"
+	"github.com/upbound/upjet/pkg/config"
 
 	"github.com/crossplane-contrib/provider-jet-aws/config/common"
 )
@@ -92,9 +92,9 @@ func Configure(p *config.Provider) {
 				Type: "DelegationSet",
 			},
 			"vpc.vpc_id": config.Reference{
-				Type:              "github.com/crossplane-contrib/provider-jet-aws/apis/ec2/v1alpha2.VPC",
-				RefFieldName:      "VpcIdRef",
-				SelectorFieldName: "VpcIdSelector",
+				Type: "github.com/crossplane-contrib/provider-jet-aws/apis/ec2/v1alpha2.VPC",
+				//RefFieldName:      "VpcIdRef",
+				//SelectorFieldName: "VpcIdSelector",
 			},
 		}
 	})

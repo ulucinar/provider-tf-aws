@@ -87,7 +87,7 @@ func (in *ApplyServerSideEncryptionByDefaultParameters) DeepCopyInto(out *ApplyS
 	if in.KMSMasterKeyIDRef != nil {
 		in, out := &in.KMSMasterKeyIDRef, &out.KMSMasterKeyIDRef
 		*out = new(v1.Reference)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.KMSMasterKeyIDSelector != nil {
 		in, out := &in.KMSMasterKeyIDSelector, &out.KMSMasterKeyIDSelector

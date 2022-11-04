@@ -97,8 +97,8 @@ func (mg *Cluster) ResolveReferences(ctx context.Context, c client.Reader) error
 		mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 			CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.VPCConfig[i3].SecurityGroupIds),
 			Extract:       reference.ExternalName(),
-			References:    mg.Spec.ForProvider.VPCConfig[i3].SecurityGroupIdRefs,
-			Selector:      mg.Spec.ForProvider.VPCConfig[i3].SecurityGroupIdSelector,
+			References:    mg.Spec.ForProvider.VPCConfig[i3].SecurityGroupIdsRefs,
+			Selector:      mg.Spec.ForProvider.VPCConfig[i3].SecurityGroupIdsSelector,
 			To: reference.To{
 				List:    &v1alpha21.SecurityGroupList{},
 				Managed: &v1alpha21.SecurityGroup{},
@@ -108,15 +108,15 @@ func (mg *Cluster) ResolveReferences(ctx context.Context, c client.Reader) error
 			return errors.Wrap(err, "mg.Spec.ForProvider.VPCConfig[i3].SecurityGroupIds")
 		}
 		mg.Spec.ForProvider.VPCConfig[i3].SecurityGroupIds = reference.ToPtrValues(mrsp.ResolvedValues)
-		mg.Spec.ForProvider.VPCConfig[i3].SecurityGroupIdRefs = mrsp.ResolvedReferences
+		mg.Spec.ForProvider.VPCConfig[i3].SecurityGroupIdsRefs = mrsp.ResolvedReferences
 
 	}
 	for i3 := 0; i3 < len(mg.Spec.ForProvider.VPCConfig); i3++ {
 		mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 			CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.VPCConfig[i3].SubnetIds),
 			Extract:       reference.ExternalName(),
-			References:    mg.Spec.ForProvider.VPCConfig[i3].SubnetIdRefs,
-			Selector:      mg.Spec.ForProvider.VPCConfig[i3].SubnetIdSelector,
+			References:    mg.Spec.ForProvider.VPCConfig[i3].SubnetIdsRefs,
+			Selector:      mg.Spec.ForProvider.VPCConfig[i3].SubnetIdsSelector,
 			To: reference.To{
 				List:    &v1alpha21.SubnetList{},
 				Managed: &v1alpha21.Subnet{},
@@ -126,7 +126,7 @@ func (mg *Cluster) ResolveReferences(ctx context.Context, c client.Reader) error
 			return errors.Wrap(err, "mg.Spec.ForProvider.VPCConfig[i3].SubnetIds")
 		}
 		mg.Spec.ForProvider.VPCConfig[i3].SubnetIds = reference.ToPtrValues(mrsp.ResolvedValues)
-		mg.Spec.ForProvider.VPCConfig[i3].SubnetIdRefs = mrsp.ResolvedReferences
+		mg.Spec.ForProvider.VPCConfig[i3].SubnetIdsRefs = mrsp.ResolvedReferences
 
 	}
 
@@ -176,8 +176,8 @@ func (mg *FargateProfile) ResolveReferences(ctx context.Context, c client.Reader
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.SubnetIds),
 		Extract:       reference.ExternalName(),
-		References:    mg.Spec.ForProvider.SubnetIdRefs,
-		Selector:      mg.Spec.ForProvider.SubnetIdSelector,
+		References:    mg.Spec.ForProvider.SubnetIdsRefs,
+		Selector:      mg.Spec.ForProvider.SubnetIdsSelector,
 		To: reference.To{
 			List:    &v1alpha21.SubnetList{},
 			Managed: &v1alpha21.Subnet{},
@@ -187,7 +187,7 @@ func (mg *FargateProfile) ResolveReferences(ctx context.Context, c client.Reader
 		return errors.Wrap(err, "mg.Spec.ForProvider.SubnetIds")
 	}
 	mg.Spec.ForProvider.SubnetIds = reference.ToPtrValues(mrsp.ResolvedValues)
-	mg.Spec.ForProvider.SubnetIdRefs = mrsp.ResolvedReferences
+	mg.Spec.ForProvider.SubnetIdsRefs = mrsp.ResolvedReferences
 
 	return nil
 }
@@ -262,8 +262,8 @@ func (mg *NodeGroup) ResolveReferences(ctx context.Context, c client.Reader) err
 		mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 			CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.RemoteAccess[i3].SourceSecurityGroupIds),
 			Extract:       reference.ExternalName(),
-			References:    mg.Spec.ForProvider.RemoteAccess[i3].SourceSecurityGroupIdRefs,
-			Selector:      mg.Spec.ForProvider.RemoteAccess[i3].SourceSecurityGroupIdSelector,
+			References:    mg.Spec.ForProvider.RemoteAccess[i3].SourceSecurityGroupIdsRefs,
+			Selector:      mg.Spec.ForProvider.RemoteAccess[i3].SourceSecurityGroupIdsSelector,
 			To: reference.To{
 				List:    &v1alpha21.SecurityGroupList{},
 				Managed: &v1alpha21.SecurityGroup{},
@@ -273,14 +273,14 @@ func (mg *NodeGroup) ResolveReferences(ctx context.Context, c client.Reader) err
 			return errors.Wrap(err, "mg.Spec.ForProvider.RemoteAccess[i3].SourceSecurityGroupIds")
 		}
 		mg.Spec.ForProvider.RemoteAccess[i3].SourceSecurityGroupIds = reference.ToPtrValues(mrsp.ResolvedValues)
-		mg.Spec.ForProvider.RemoteAccess[i3].SourceSecurityGroupIdRefs = mrsp.ResolvedReferences
+		mg.Spec.ForProvider.RemoteAccess[i3].SourceSecurityGroupIdsRefs = mrsp.ResolvedReferences
 
 	}
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.SubnetIds),
 		Extract:       reference.ExternalName(),
-		References:    mg.Spec.ForProvider.SubnetIdRefs,
-		Selector:      mg.Spec.ForProvider.SubnetIdSelector,
+		References:    mg.Spec.ForProvider.SubnetIdsRefs,
+		Selector:      mg.Spec.ForProvider.SubnetIdsSelector,
 		To: reference.To{
 			List:    &v1alpha21.SubnetList{},
 			Managed: &v1alpha21.Subnet{},
@@ -290,7 +290,7 @@ func (mg *NodeGroup) ResolveReferences(ctx context.Context, c client.Reader) err
 		return errors.Wrap(err, "mg.Spec.ForProvider.SubnetIds")
 	}
 	mg.Spec.ForProvider.SubnetIds = reference.ToPtrValues(mrsp.ResolvedValues)
-	mg.Spec.ForProvider.SubnetIdRefs = mrsp.ResolvedReferences
+	mg.Spec.ForProvider.SubnetIdsRefs = mrsp.ResolvedReferences
 
 	return nil
 }

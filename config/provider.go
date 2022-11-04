@@ -22,9 +22,7 @@ import (
 
 	"github.com/crossplane-contrib/provider-jet-aws/config/mq"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-
-	tjconfig "github.com/crossplane/terrajet/pkg/config"
+	tjconfig "github.com/upbound/upjet/pkg/config"
 
 	"github.com/crossplane-contrib/provider-jet-aws/config/amp"
 	"github.com/crossplane-contrib/provider-jet-aws/config/autoscaling"
@@ -201,12 +199,12 @@ var skipList = []string{
 
 // GetProvider returns provider configuration
 func GetProvider() *tjconfig.Provider {
-	pc := tjconfig.NewProviderWithSchema([]byte(providerSchema), "aws", "github.com/crossplane-contrib/provider-jet-aws",
+	pc := tjconfig.NewProvider([]byte(providerSchema), "aws", "github.com/crossplane-contrib/provider-jet-aws", nil,
 		tjconfig.WithShortName("awsjet"),
 		tjconfig.WithRootGroup("aws.jet.crossplane.io"),
 		tjconfig.WithIncludeList(IncludedResources),
 		tjconfig.WithSkipList(skipList),
-		tjconfig.WithDefaultResourceFn(DefaultResource(
+		tjconfig.WithDefaultResourceOptions(
 			GroupKindOverrides(),
 			KindOverrides(),
 			RegionAddition(),
@@ -215,7 +213,17 @@ func GetProvider() *tjconfig.Provider {
 			NamePrefixRemoval(),
 			KnownReferencers(),
 			AddExternalTagsField(),
-		)),
+		),
+		tjconfig.WithBasePackages(tjconfig.BasePackages{
+			APIVersion: []string{
+				// Default package for ProviderConfig APIs
+				"apis/v1alpha1",
+			},
+			Controller: []string{
+				// Default package for ProviderConfig controllers
+				"internal/controller/providerconfig",
+			},
+		}),
 	)
 
 	for _, configure := range []func(provider *tjconfig.Provider){
@@ -244,12 +252,4 @@ func GetProvider() *tjconfig.Provider {
 
 	pc.ConfigureResources()
 	return pc
-}
-
-// DefaultResource returns a DefaultResoruceFn that makes sure the original
-// DefaultResource call is made with given options here.
-func DefaultResource(opts ...tjconfig.ResourceOption) tjconfig.DefaultResourceFn {
-	return func(name string, terraformResource *schema.Resource, orgOpts ...tjconfig.ResourceOption) *tjconfig.Resource {
-		return tjconfig.DefaultResource(name, terraformResource, append(orgOpts, opts...)...)
-	}
 }

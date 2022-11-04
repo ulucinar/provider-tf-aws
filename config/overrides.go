@@ -24,9 +24,9 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/pkg/errors"
 
-	tjconfig "github.com/crossplane/terrajet/pkg/config"
-	"github.com/crossplane/terrajet/pkg/types/comments"
-	"github.com/crossplane/terrajet/pkg/types/name"
+	tjconfig "github.com/upbound/upjet/pkg/config"
+	"github.com/upbound/upjet/pkg/types/comments"
+	"github.com/upbound/upjet/pkg/types/name"
 )
 
 // GroupKindCalculator returns the correct group and kind name for given TF
@@ -374,6 +374,9 @@ func KnownReferencers() tjconfig.ResourceOption { //nolint:gocyclo
 			if (s.Computed && !s.Optional) || s.Sensitive {
 				continue
 			}
+			if r.Name == "aws_neptune_cluster" || r.Name == "aws_route53_resolver_endpoint" {
+				continue
+			}
 			switch {
 			case strings.HasSuffix(k, "role_arn"):
 				r.References[k] = tjconfig.Reference{
@@ -390,15 +393,13 @@ func KnownReferencers() tjconfig.ResourceOption { //nolint:gocyclo
 			switch k {
 			case "vpc_id":
 				r.References["vpc_id"] = tjconfig.Reference{
-					Type:              "github.com/crossplane-contrib/provider-jet-aws/apis/ec2/v1alpha2.VPC",
-					RefFieldName:      "VpcIdRef",
-					SelectorFieldName: "VpcIdSelector",
+					Type: "github.com/crossplane-contrib/provider-jet-aws/apis/ec2/v1alpha2.VPC",
 				}
 			case "subnet_ids":
 				r.References["subnet_ids"] = tjconfig.Reference{
-					Type:              "github.com/crossplane-contrib/provider-jet-aws/apis/ec2/v1alpha2.Subnet",
-					RefFieldName:      "SubnetIdRefs",
-					SelectorFieldName: "SubnetIdSelector",
+					Type: "github.com/crossplane-contrib/provider-jet-aws/apis/ec2/v1alpha2.Subnet",
+					//RefFieldName:      "SubnetIdRefs",
+					//SelectorFieldName: "SubnetIdSelector",
 				}
 			case "subnet_id":
 				r.References["subnet_id"] = tjconfig.Reference{

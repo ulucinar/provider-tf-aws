@@ -310,7 +310,7 @@ func (in *ClusterParameters) DeepCopyInto(out *ClusterParameters) {
 	if in.ParameterGroupNameRef != nil {
 		in, out := &in.ParameterGroupNameRef, &out.ParameterGroupNameRef
 		*out = new(v1.Reference)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ParameterGroupNameSelector != nil {
 		in, out := &in.ParameterGroupNameSelector, &out.ParameterGroupNameSelector
@@ -399,7 +399,7 @@ func (in *ClusterParameters) DeepCopyInto(out *ClusterParameters) {
 	if in.SubnetGroupNameRef != nil {
 		in, out := &in.SubnetGroupNameRef, &out.SubnetGroupNameRef
 		*out = new(v1.Reference)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.SubnetGroupNameSelector != nil {
 		in, out := &in.SubnetGroupNameSelector, &out.SubnetGroupNameSelector
@@ -1011,7 +1011,7 @@ func (in *ReplicationGroupParameters) DeepCopyInto(out *ReplicationGroupParamete
 	if in.KMSKeyIDRef != nil {
 		in, out := &in.KMSKeyIDRef, &out.KMSKeyIDRef
 		*out = new(v1.Reference)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.KMSKeyIDSelector != nil {
 		in, out := &in.KMSKeyIDSelector, &out.KMSKeyIDSelector
@@ -1096,16 +1096,6 @@ func (in *ReplicationGroupParameters) DeepCopyInto(out *ReplicationGroupParamete
 		*out = new(string)
 		**out = **in
 	}
-	if in.SecurityGroupIdRefs != nil {
-		in, out := &in.SecurityGroupIdRefs, &out.SecurityGroupIdRefs
-		*out = make([]v1.Reference, len(*in))
-		copy(*out, *in)
-	}
-	if in.SecurityGroupIdSelector != nil {
-		in, out := &in.SecurityGroupIdSelector, &out.SecurityGroupIdSelector
-		*out = new(v1.Selector)
-		(*in).DeepCopyInto(*out)
-	}
 	if in.SecurityGroupIds != nil {
 		in, out := &in.SecurityGroupIds, &out.SecurityGroupIds
 		*out = make([]*string, len(*in))
@@ -1116,6 +1106,18 @@ func (in *ReplicationGroupParameters) DeepCopyInto(out *ReplicationGroupParamete
 				**out = **in
 			}
 		}
+	}
+	if in.SecurityGroupIdsRefs != nil {
+		in, out := &in.SecurityGroupIdsRefs, &out.SecurityGroupIdsRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.SecurityGroupIdsSelector != nil {
+		in, out := &in.SecurityGroupIdsSelector, &out.SecurityGroupIdsSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.SecurityGroupNames != nil {
 		in, out := &in.SecurityGroupNames, &out.SecurityGroupNames
@@ -1162,7 +1164,7 @@ func (in *ReplicationGroupParameters) DeepCopyInto(out *ReplicationGroupParamete
 	if in.SubnetGroupNameRef != nil {
 		in, out := &in.SubnetGroupNameRef, &out.SubnetGroupNameRef
 		*out = new(v1.Reference)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.SubnetGroupNameSelector != nil {
 		in, out := &in.SubnetGroupNameSelector, &out.SubnetGroupNameSelector
@@ -1358,16 +1360,6 @@ func (in *SubnetGroupParameters) DeepCopyInto(out *SubnetGroupParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.SubnetIdRefs != nil {
-		in, out := &in.SubnetIdRefs, &out.SubnetIdRefs
-		*out = make([]v1.Reference, len(*in))
-		copy(*out, *in)
-	}
-	if in.SubnetIdSelector != nil {
-		in, out := &in.SubnetIdSelector, &out.SubnetIdSelector
-		*out = new(v1.Selector)
-		(*in).DeepCopyInto(*out)
-	}
 	if in.SubnetIds != nil {
 		in, out := &in.SubnetIds, &out.SubnetIds
 		*out = make([]*string, len(*in))
@@ -1378,6 +1370,18 @@ func (in *SubnetGroupParameters) DeepCopyInto(out *SubnetGroupParameters) {
 				**out = **in
 			}
 		}
+	}
+	if in.SubnetIdsRefs != nil {
+		in, out := &in.SubnetIdsRefs, &out.SubnetIdsRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.SubnetIdsSelector != nil {
+		in, out := &in.SubnetIdsSelector, &out.SubnetIdsSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
@@ -1594,16 +1598,6 @@ func (in *UserGroupParameters) DeepCopyInto(out *UserGroupParameters) {
 			(*out)[key] = outVal
 		}
 	}
-	if in.UserIdRefs != nil {
-		in, out := &in.UserIdRefs, &out.UserIdRefs
-		*out = make([]v1.Reference, len(*in))
-		copy(*out, *in)
-	}
-	if in.UserIdSelector != nil {
-		in, out := &in.UserIdSelector, &out.UserIdSelector
-		*out = new(v1.Selector)
-		(*in).DeepCopyInto(*out)
-	}
 	if in.UserIds != nil {
 		in, out := &in.UserIds, &out.UserIds
 		*out = make([]*string, len(*in))
@@ -1614,6 +1608,18 @@ func (in *UserGroupParameters) DeepCopyInto(out *UserGroupParameters) {
 				**out = **in
 			}
 		}
+	}
+	if in.UserIdsRefs != nil {
+		in, out := &in.UserIdsRefs, &out.UserIdsRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.UserIdsSelector != nil {
+		in, out := &in.UserIdsSelector, &out.UserIdsSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 

@@ -92,7 +92,7 @@ func (in *AutoScalingGroupProviderParameters) DeepCopyInto(out *AutoScalingGroup
 	if in.AutoScalingGroupArnRef != nil {
 		in, out := &in.AutoScalingGroupArnRef, &out.AutoScalingGroupArnRef
 		*out = new(v1.Reference)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.AutoScalingGroupArnSelector != nil {
 		in, out := &in.AutoScalingGroupArnSelector, &out.AutoScalingGroupArnSelector
@@ -459,7 +459,9 @@ func (in *ClusterParameters) DeepCopyInto(out *ClusterParameters) {
 	if in.CapacityProvidersRefs != nil {
 		in, out := &in.CapacityProvidersRefs, &out.CapacityProvidersRefs
 		*out = make([]v1.Reference, len(*in))
-		copy(*out, *in)
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.CapacityProvidersSelector != nil {
 		in, out := &in.CapacityProvidersSelector, &out.CapacityProvidersSelector
@@ -1237,7 +1239,9 @@ func (in *NetworkConfigurationParameters) DeepCopyInto(out *NetworkConfiguration
 	if in.SecurityGroupRefs != nil {
 		in, out := &in.SecurityGroupRefs, &out.SecurityGroupRefs
 		*out = make([]v1.Reference, len(*in))
-		copy(*out, *in)
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SecurityGroupSelector != nil {
 		in, out := &in.SecurityGroupSelector, &out.SecurityGroupSelector
@@ -1258,7 +1262,9 @@ func (in *NetworkConfigurationParameters) DeepCopyInto(out *NetworkConfiguration
 	if in.SubnetRefs != nil {
 		in, out := &in.SubnetRefs, &out.SubnetRefs
 		*out = make([]v1.Reference, len(*in))
-		copy(*out, *in)
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SubnetSelector != nil {
 		in, out := &in.SubnetSelector, &out.SubnetSelector
@@ -1575,7 +1581,7 @@ func (in *ServiceParameters) DeepCopyInto(out *ServiceParameters) {
 	if in.ClusterRef != nil {
 		in, out := &in.ClusterRef, &out.ClusterRef
 		*out = new(v1.Reference)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ClusterSelector != nil {
 		in, out := &in.ClusterSelector, &out.ClusterSelector
@@ -1639,7 +1645,7 @@ func (in *ServiceParameters) DeepCopyInto(out *ServiceParameters) {
 	if in.IAMRoleRef != nil {
 		in, out := &in.IAMRoleRef, &out.IAMRoleRef
 		*out = new(v1.Reference)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.IAMRoleSelector != nil {
 		in, out := &in.IAMRoleSelector, &out.IAMRoleSelector
@@ -1999,7 +2005,7 @@ func (in *TaskDefinitionParameters) DeepCopyInto(out *TaskDefinitionParameters) 
 	if in.ExecutionRoleArnRef != nil {
 		in, out := &in.ExecutionRoleArnRef, &out.ExecutionRoleArnRef
 		*out = new(v1.Reference)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ExecutionRoleArnSelector != nil {
 		in, out := &in.ExecutionRoleArnSelector, &out.ExecutionRoleArnSelector

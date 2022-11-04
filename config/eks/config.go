@@ -21,8 +21,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/crossplane/terrajet/pkg/config"
 	"github.com/pkg/errors"
+	"github.com/upbound/upjet/pkg/config"
 
 	"github.com/crossplane-contrib/provider-jet-aws/config/common"
 )
@@ -38,14 +38,14 @@ func Configure(p *config.Provider) { // nolint:gocyclo
 				Extractor: common.PathARNExtractor,
 			},
 			"vpc_config.subnet_ids": {
-				Type:              "github.com/crossplane-contrib/provider-jet-aws/apis/ec2/v1alpha2.Subnet",
-				RefFieldName:      "SubnetIdRefs",
-				SelectorFieldName: "SubnetIdSelector",
+				Type: "github.com/crossplane-contrib/provider-jet-aws/apis/ec2/v1alpha2.Subnet",
+				//RefFieldName:      "SubnetIdRefs",
+				//SelectorFieldName: "SubnetIdSelector",
 			},
 			"vpc_config.security_group_ids": {
-				Type:              "github.com/crossplane-contrib/provider-jet-aws/apis/ec2/v1alpha2.SecurityGroup",
-				RefFieldName:      "SecurityGroupIdRefs",
-				SelectorFieldName: "SecurityGroupIdSelector",
+				Type: "github.com/crossplane-contrib/provider-jet-aws/apis/ec2/v1alpha2.SecurityGroup",
+				//RefFieldName:      "SecurityGroupIdRefs",
+				//SelectorFieldName: "SecurityGroupIdSelector",
 			},
 		}
 		r.UseAsync = true
@@ -89,14 +89,14 @@ func Configure(p *config.Provider) { // nolint:gocyclo
 				Extractor: common.PathARNExtractor,
 			},
 			"remote_access.source_security_group_ids": {
-				Type:              "github.com/crossplane-contrib/provider-jet-aws/apis/ec2/v1alpha2.SecurityGroup",
-				RefFieldName:      "SourceSecurityGroupIdRefs",
-				SelectorFieldName: "SourceSecurityGroupIdSelector",
+				Type: "github.com/crossplane-contrib/provider-jet-aws/apis/ec2/v1alpha2.SecurityGroup",
+				//RefFieldName:      "SourceSecurityGroupIdRefs",
+				//SelectorFieldName: "SourceSecurityGroupIdSelector",
 			},
 			"subnet_ids": {
-				Type:              "github.com/crossplane-contrib/provider-jet-aws/apis/ec2/v1alpha2.Subnet",
-				RefFieldName:      "SubnetIdRefs",
-				SelectorFieldName: "SubnetIdSelector",
+				Type: "github.com/crossplane-contrib/provider-jet-aws/apis/ec2/v1alpha2.Subnet",
+				//RefFieldName:      "SubnetIdRefs",
+				//SelectorFieldName: "SubnetIdSelector",
 			},
 		}
 		r.UseAsync = true
@@ -150,9 +150,9 @@ func Configure(p *config.Provider) { // nolint:gocyclo
 				Extractor: common.PathARNExtractor,
 			},
 			"subnet_ids": {
-				Type:              "github.com/crossplane-contrib/provider-jet-aws/apis/ec2/v1alpha2.Subnet",
-				RefFieldName:      "SubnetIdRefs",
-				SelectorFieldName: "SubnetIdSelector",
+				Type: "github.com/crossplane-contrib/provider-jet-aws/apis/ec2/v1alpha2.Subnet",
+				//RefFieldName:      "SubnetIdRefs",
+				//SelectorFieldName: "SubnetIdSelector",
 			},
 		}
 	})

@@ -21,7 +21,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/crossplane/terrajet/pkg/pipeline"
+	"github.com/upbound/upjet/pkg/pipeline"
 
 	"github.com/crossplane-contrib/provider-jet-aws/config"
 )

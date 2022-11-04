@@ -146,7 +146,7 @@ func (in *AccessKeyParameters) DeepCopyInto(out *AccessKeyParameters) {
 	if in.UserRef != nil {
 		in, out := &in.UserRef, &out.UserRef
 		*out = new(v1.Reference)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.UserSelector != nil {
 		in, out := &in.UserSelector, &out.UserSelector
@@ -398,7 +398,7 @@ func (in *GroupPolicyAttachmentParameters) DeepCopyInto(out *GroupPolicyAttachme
 	if in.GroupRef != nil {
 		in, out := &in.GroupRef, &out.GroupRef
 		*out = new(v1.Reference)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.GroupSelector != nil {
 		in, out := &in.GroupSelector, &out.GroupSelector
@@ -413,7 +413,7 @@ func (in *GroupPolicyAttachmentParameters) DeepCopyInto(out *GroupPolicyAttachme
 	if in.PolicyArnRef != nil {
 		in, out := &in.PolicyArnRef, &out.PolicyArnRef
 		*out = new(v1.Reference)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.PolicyArnSelector != nil {
 		in, out := &in.PolicyArnSelector, &out.PolicyArnSelector
@@ -665,7 +665,7 @@ func (in *InstanceProfileParameters) DeepCopyInto(out *InstanceProfileParameters
 	if in.RoleRef != nil {
 		in, out := &in.RoleRef, &out.RoleRef
 		*out = new(v1.Reference)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.RoleSelector != nil {
 		in, out := &in.RoleSelector, &out.RoleSelector
@@ -1393,7 +1393,7 @@ func (in *RolePolicyAttachmentParameters) DeepCopyInto(out *RolePolicyAttachment
 	if in.PolicyArnRef != nil {
 		in, out := &in.PolicyArnRef, &out.PolicyArnRef
 		*out = new(v1.Reference)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.PolicyArnSelector != nil {
 		in, out := &in.PolicyArnSelector, &out.PolicyArnSelector
@@ -1408,7 +1408,7 @@ func (in *RolePolicyAttachmentParameters) DeepCopyInto(out *RolePolicyAttachment
 	if in.RoleRef != nil {
 		in, out := &in.RoleRef, &out.RoleRef
 		*out = new(v1.Reference)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.RoleSelector != nil {
 		in, out := &in.RoleSelector, &out.RoleSelector
@@ -1607,7 +1607,9 @@ func (in *UserGroupMembershipParameters) DeepCopyInto(out *UserGroupMembershipPa
 	if in.GroupRefs != nil {
 		in, out := &in.GroupRefs, &out.GroupRefs
 		*out = make([]v1.Reference, len(*in))
-		copy(*out, *in)
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.GroupSelector != nil {
 		in, out := &in.GroupSelector, &out.GroupSelector
@@ -1633,7 +1635,7 @@ func (in *UserGroupMembershipParameters) DeepCopyInto(out *UserGroupMembershipPa
 	if in.UserRef != nil {
 		in, out := &in.UserRef, &out.UserRef
 		*out = new(v1.Reference)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.UserSelector != nil {
 		in, out := &in.UserSelector, &out.UserSelector
@@ -1898,7 +1900,7 @@ func (in *UserPolicyAttachmentParameters) DeepCopyInto(out *UserPolicyAttachment
 	if in.PolicyArnRef != nil {
 		in, out := &in.PolicyArnRef, &out.PolicyArnRef
 		*out = new(v1.Reference)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.PolicyArnSelector != nil {
 		in, out := &in.PolicyArnSelector, &out.PolicyArnSelector
@@ -1913,7 +1915,7 @@ func (in *UserPolicyAttachmentParameters) DeepCopyInto(out *UserPolicyAttachment
 	if in.UserRef != nil {
 		in, out := &in.UserRef, &out.UserRef
 		*out = new(v1.Reference)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
 	if in.UserSelector != nil {
 		in, out := &in.UserSelector, &out.UserSelector

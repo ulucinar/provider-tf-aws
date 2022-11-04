@@ -256,6 +256,13 @@ func (in *EndpointObservation) DeepCopyInto(out *EndpointObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.IPAddress != nil {
+		in, out := &in.IPAddress, &out.IPAddress
+		*out = make([]IPAddressObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
 	if in.TagsAll != nil {
 		in, out := &in.TagsAll, &out.TagsAll
 		*out = make(map[string]*string, len(*in))
@@ -307,16 +314,6 @@ func (in *EndpointParameters) DeepCopyInto(out *EndpointParameters) {
 		in, out := &in.Region, &out.Region
 		*out = new(string)
 		**out = **in
-	}
-	if in.SecurityGroupIdRefs != nil {
-		in, out := &in.SecurityGroupIdRefs, &out.SecurityGroupIdRefs
-		*out = make([]v1.Reference, len(*in))
-		copy(*out, *in)
-	}
-	if in.SecurityGroupIdSelector != nil {
-		in, out := &in.SecurityGroupIdSelector, &out.SecurityGroupIdSelector
-		*out = new(v1.Selector)
-		(*in).DeepCopyInto(*out)
 	}
 	if in.SecurityGroupIds != nil {
 		in, out := &in.SecurityGroupIds, &out.SecurityGroupIds
@@ -923,13 +920,13 @@ func (in *FirewallRuleGroupAssociationParameters) DeepCopyInto(out *FirewallRule
 		*out = new(string)
 		**out = **in
 	}
-	if in.VpcIdRef != nil {
-		in, out := &in.VpcIdRef, &out.VpcIdRef
+	if in.VPCIDRef != nil {
+		in, out := &in.VPCIDRef, &out.VPCIDRef
 		*out = new(v1.Reference)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
-	if in.VpcIdSelector != nil {
-		in, out := &in.VpcIdSelector, &out.VpcIdSelector
+	if in.VPCIDSelector != nil {
+		in, out := &in.VPCIDSelector, &out.VPCIDSelector
 		*out = new(v1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
@@ -1791,13 +1788,13 @@ func (in *RuleAssociationParameters) DeepCopyInto(out *RuleAssociationParameters
 		*out = new(string)
 		**out = **in
 	}
-	if in.VpcIdRef != nil {
-		in, out := &in.VpcIdRef, &out.VpcIdRef
+	if in.VPCIDRef != nil {
+		in, out := &in.VPCIDRef, &out.VPCIDRef
 		*out = new(v1.Reference)
-		**out = **in
+		(*in).DeepCopyInto(*out)
 	}
-	if in.VpcIdSelector != nil {
-		in, out := &in.VpcIdSelector, &out.VpcIdSelector
+	if in.VPCIDSelector != nil {
+		in, out := &in.VPCIDSelector, &out.VPCIDSelector
 		*out = new(v1.Selector)
 		(*in).DeepCopyInto(*out)
 	}

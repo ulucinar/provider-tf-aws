@@ -17,7 +17,7 @@ limitations under the License.
 package rds
 
 import (
-	"github.com/crossplane/terrajet/pkg/config"
+	"github.com/upbound/upjet/pkg/config"
 
 	"github.com/crossplane-contrib/provider-jet-aws/config/common"
 )
@@ -42,9 +42,9 @@ func Configure(p *config.Provider) {
 				Type: "github.com/crossplane-contrib/provider-jet-aws/apis/s3/v1alpha2.Bucket",
 			},
 			"vpc_security_group_ids": {
-				Type:              "github.com/crossplane-contrib/provider-jet-aws/apis/ec2/v1alpha2.SecurityGroup",
-				RefFieldName:      "VpcSecurityGroupIdRefs",
-				SelectorFieldName: "VpcSecurityGroupIdSelector",
+				Type: "github.com/crossplane-contrib/provider-jet-aws/apis/ec2/v1alpha2.SecurityGroup",
+				//RefFieldName:      "VpcSecurityGroupIdRefs",
+				//SelectorFieldName: "VpcSecurityGroupIdSelector",
 			},
 			"restore_to_point_in_time.source_cluster_identifier": {
 				Type: "Cluster",
@@ -91,9 +91,9 @@ func Configure(p *config.Provider) {
 				SelectorFieldName: "SecurityGroupNameSelector",
 			},
 			"vpc_security_group_ids": {
-				Type:              "github.com/crossplane-contrib/provider-jet-aws/apis/ec2/v1alpha2.SecurityGroup",
-				RefFieldName:      "VpcSecurityGroupIdRefs",
-				SelectorFieldName: "VpcSecurityGroupIdSelector",
+				Type: "github.com/crossplane-contrib/provider-jet-aws/apis/ec2/v1alpha2.SecurityGroup",
+				//RefFieldName:      "VpcSecurityGroupIdRefs",
+				//SelectorFieldName: "VpcSecurityGroupIdSelector",
 			},
 			"parameter_group_name": {
 				Type: "ParameterGroup",
