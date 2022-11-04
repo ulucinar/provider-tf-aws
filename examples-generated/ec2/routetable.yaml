@@ -1,0 +1,23 @@
+apiVersion: ec2.aws.jet.crossplane.io/v1alpha2
+kind: RouteTable
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1alpha2/routetable
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    route:
+    - cidrBlock: 10.0.1.0/24
+      gatewayId: ${aws_internet_gateway.example.id}
+    - egressOnlyGatewayId: ${aws_egress_only_internet_gateway.example.id}
+      ipv6CidrBlock: ::/0
+    tags:
+      Name: example
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+
+---
+

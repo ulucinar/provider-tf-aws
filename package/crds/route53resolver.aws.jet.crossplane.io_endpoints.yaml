@@ -35,7 +35,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Endpoint is the Schema for the Endpoints API. <no value>
+        description: Endpoint is the Schema for the Endpoints API. Provides a Route
+          53 Resolver endpoint resource.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -64,31 +65,49 @@ spec:
               forProvider:
                 properties:
                   direction:
+                    description: The direction of DNS queries to or from the Route
+                      53 Resolver endpoint. Valid values are INBOUND (resolver forwards
+                      DNS queries to the DNS service for a VPC from your network or
+                      another VPC) or OUTBOUND (resolver forwards DNS queries from
+                      the DNS service for a VPC to your network or another VPC).
                     type: string
                   ipAddress:
+                    description: The subnets and IP addresses in your VPC that you
+                      want DNS queries to pass through on the way from your VPCs to
+                      your network (for outbound endpoints) or on the way from your
+                      network to your VPCs (for inbound endpoints). Described below.
                     items:
                       properties:
                         ip:
+                          description: The IP address in the subnet that you want
+                            to use for DNS queries.
                           type: string
                         subnetId:
+                          description: The ID of the subnet that contains the IP address.
                           type: string
                       required:
                       - subnetId
                       type: object
                     type: array
                   name:
+                    description: The friendly name of the Route 53 Resolver endpoint.
                     type: string
                   region:
                     description: Region is the region you'd like your resource to
                       be created in.
                     type: string
                   securityGroupIds:
+                    description: The ID of one or more security groups that you want
+                      to use to control access to this VPC.
                     items:
                       type: string
                     type: array
                   tags:
                     additionalProperties:
                       type: string
+                    description: A map of tags to assign to the resource. If configured
+                      with a provider default_tags configuration block present, tags
+                      with matching keys will overwrite those defined at the provider-level.
                     type: object
                 required:
                 - direction
@@ -273,21 +292,33 @@ spec:
               atProvider:
                 properties:
                   arn:
+                    description: The ARN of the Route 53 Resolver endpoint.
                     type: string
                   hostVpcId:
+                    description: The ID of the VPC that you want to create the resolver
+                      endpoint in.
                     type: string
                   id:
+                    description: The ID of the Route 53 Resolver endpoint.
                     type: string
                   ipAddress:
+                    description: The subnets and IP addresses in your VPC that you
+                      want DNS queries to pass through on the way from your VPCs to
+                      your network (for outbound endpoints) or on the way from your
+                      network to your VPCs (for inbound endpoints). Described below.
                     items:
                       properties:
                         ipId:
+                          description: The ID of the Route 53 Resolver endpoint.
                           type: string
                       type: object
                     type: array
                   tagsAll:
                     additionalProperties:
                       type: string
+                    description: A map of tags assigned to the resource, including
+                      those inherited from the provider default_tags configuration
+                      block.
                     type: object
                 type: object
               conditions:

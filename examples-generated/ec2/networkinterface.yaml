@@ -1,0 +1,25 @@
+apiVersion: ec2.aws.jet.crossplane.io/v1alpha2
+kind: NetworkInterface
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1alpha2/networkinterface
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    attachment:
+    - deviceIndex: 1
+      instanceSelector:
+        matchLabels:
+          testing.upbound.io/example-name: test
+    privateIps:
+    - 10.0.0.50
+    securityGroupRefs:
+    - name: web
+    subnetIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: public_a
+
+---
+

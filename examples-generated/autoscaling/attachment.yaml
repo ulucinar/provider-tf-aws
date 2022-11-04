@@ -1,0 +1,17 @@
+apiVersion: autoscaling.aws.jet.crossplane.io/v1alpha2
+kind: Attachment
+metadata:
+  annotations:
+    meta.upbound.io/example-id: autoscaling/v1alpha2/attachment
+  labels:
+    testing.upbound.io/example-name: asg_attachment_bar
+  name: asg-attachment-bar
+spec:
+  forProvider:
+    autoscalingGroupNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: asg
+    elb: ${aws_elb.bar.id}
+
+---
+

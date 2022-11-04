@@ -26,6 +26,8 @@ import (
 )
 
 type UserGroupObservation struct {
+
+	// The user group identifier.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	TagsAll map[string]*string `json:"tagsAll,omitempty" tf:"tags_all,omitempty"`
@@ -36,6 +38,7 @@ type UserGroupParameters struct {
 	// +kubebuilder:validation:Optional
 	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
 
+	// The current supported value is REDIS.
 	// +kubebuilder:validation:Required
 	Engine *string `json:"engine" tf:"engine,omitempty"`
 
@@ -47,6 +50,7 @@ type UserGroupParameters struct {
 	// +kubebuilder:validation:Optional
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
+	// The list of user IDs that belong to the user group.
 	// +crossplane:generate:reference:type=User
 	// +kubebuilder:validation:Optional
 	UserIds []*string `json:"userIds,omitempty" tf:"user_ids,omitempty"`
@@ -74,7 +78,7 @@ type UserGroupStatus struct {
 
 // +kubebuilder:object:root=true
 
-// UserGroup is the Schema for the UserGroups API. <no value>
+// UserGroup is the Schema for the UserGroups API. Provides an ElastiCache user group.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

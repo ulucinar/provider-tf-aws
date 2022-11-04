@@ -26,12 +26,17 @@ import (
 )
 
 type DNSSECConfigObservation struct {
+
+	// The ARN for a configuration for DNSSEC validation.
 	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
 
+	// The ID for a configuration for DNSSEC validation.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// The owner account ID of the virtual private cloud (VPC) for a configuration for DNSSEC validation.
 	OwnerID *string `json:"ownerId,omitempty" tf:"owner_id,omitempty"`
 
+	// The validation status for a DNSSEC configuration. The status can be one of the following: ENABLING, ENABLED, DISABLING and DISABLED.
 	ValidationStatus *string `json:"validationStatus,omitempty" tf:"validation_status,omitempty"`
 }
 
@@ -42,6 +47,7 @@ type DNSSECConfigParameters struct {
 	// +kubebuilder:validation:Required
 	Region *string `json:"region" tf:"-"`
 
+	// The ID of the virtual private cloud (VPC) that you're updating the DNSSEC validation status for.
 	// +kubebuilder:validation:Required
 	ResourceID *string `json:"resourceId" tf:"resource_id,omitempty"`
 }
@@ -60,7 +66,7 @@ type DNSSECConfigStatus struct {
 
 // +kubebuilder:object:root=true
 
-// DNSSECConfig is the Schema for the DNSSECConfigs API. <no value>
+// DNSSECConfig is the Schema for the DNSSECConfigs API. Provides a Route 53 Resolver DNSSEC config resource.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

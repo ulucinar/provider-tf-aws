@@ -1,0 +1,21 @@
+apiVersion: ec2.aws.jet.crossplane.io/v1alpha2
+kind: TransitGatewayVPCAttachment
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1alpha2/transitgatewayvpcattachment
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    subnetIdsRefs:
+    - name: example
+    transitGatewayIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+
+---
+

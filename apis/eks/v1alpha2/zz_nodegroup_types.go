@@ -26,6 +26,8 @@ import (
 )
 
 type AutoscalingGroupsObservation struct {
+
+	// Name of the AutoScaling Group.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
@@ -37,36 +39,48 @@ type LaunchTemplateObservation struct {
 
 type LaunchTemplateParameters struct {
 
+	// Identifier of the EC2 Launch Template. Conflicts with name.
 	// +kubebuilder:validation:Optional
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// Name of the EC2 Launch Template. Conflicts with id.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// EC2 Launch Template version number. While the API accepts values like $Default and $Latest, the API will convert the value to the associated version number (e.g. Using the default_version or latest_version attribute of the aws_launch_template resource or data source is recommended for this argument.
 	// +kubebuilder:validation:Required
 	Version *string `json:"version" tf:"version,omitempty"`
 }
 
 type NodeGroupObservation struct {
+
+	// Amazon Resource Name (ARN) of the EKS Node Group.
 	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
 
+	// EKS Cluster name and EKS Node Group name separated by a colon (:).
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// List of objects containing information about underlying resources.
 	Resources []ResourcesObservation `json:"resources,omitempty" tf:"resources,omitempty"`
 
+	// Status of the EKS Node Group.
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
 
+	// A map of tags assigned to the resource, including those inherited from the provider default_tags configuration block.
 	TagsAll map[string]*string `json:"tagsAll,omitempty" tf:"tags_all,omitempty"`
 }
 
 type NodeGroupParameters struct {
 
+	// Type of Amazon Machine Image (AMI) associated with the EKS Node Group. See the AWS documentation for valid values.
 	// +kubebuilder:validation:Optional
 	AMIType *string `json:"amiType,omitempty" tf:"ami_type,omitempty"`
 
+	// Type of capacity associated with the EKS Node Group. Valid values: ON_DEMAND, SPOT.
 	// +kubebuilder:validation:Optional
 	CapacityType *string `json:"capacityType,omitempty" tf:"capacity_type,omitempty"`
 
+	// 100 characters in length. Must begin with an alphanumeric character, and must only contain alphanumeric characters, dashes and underscores (^[0-9A-Za-z][A-Za-z0-9\-_]+$).
 	// +crossplane:generate:reference:type=Cluster
 	// +kubebuilder:validation:Optional
 	ClusterName *string `json:"clusterName,omitempty" tf:"cluster_name,omitempty"`
@@ -79,21 +93,27 @@ type NodeGroupParameters struct {
 	// +kubebuilder:validation:Optional
 	ClusterNameSelector *v1.Selector `json:"clusterNameSelector,omitempty" tf:"-"`
 
+	// Disk size in GiB for worker nodes. Defaults to 20.
 	// +kubebuilder:validation:Optional
 	DiskSize *float64 `json:"diskSize,omitempty" tf:"disk_size,omitempty"`
 
+	// Force version update if existing pods are unable to be drained due to a pod disruption budget issue.
 	// +kubebuilder:validation:Optional
 	ForceUpdateVersion *bool `json:"forceUpdateVersion,omitempty" tf:"force_update_version,omitempty"`
 
+	// List of instance types associated with the EKS Node Group. Defaults to ["t3.medium"].
 	// +kubebuilder:validation:Optional
 	InstanceTypes []*string `json:"instanceTypes,omitempty" tf:"instance_types,omitempty"`
 
+	// Key-value map of Kubernetes labels. Only labels that are applied with the EKS API are managed by this argument. Other Kubernetes labels applied to the EKS Node Group will not be managed.
 	// +kubebuilder:validation:Optional
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
+	// Configuration block with Launch Template settings. Detailed below.
 	// +kubebuilder:validation:Optional
 	LaunchTemplate []LaunchTemplateParameters `json:"launchTemplate,omitempty" tf:"launch_template,omitempty"`
 
+	// –  Amazon Resource Name (ARN) of the IAM Role that provides permissions for the EKS Node Group.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-jet-aws/apis/iam/v1alpha2.Role
 	// +crossplane:generate:reference:extractor=github.com/crossplane-contrib/provider-jet-aws/config/common.ARNExtractor()
 	// +kubebuilder:validation:Optional
@@ -112,15 +132,19 @@ type NodeGroupParameters struct {
 	// +kubebuilder:validation:Required
 	Region *string `json:"region" tf:"-"`
 
+	// –  AMI version of the EKS Node Group. Defaults to latest version for Kubernetes version.
 	// +kubebuilder:validation:Optional
 	ReleaseVersion *string `json:"releaseVersion,omitempty" tf:"release_version,omitempty"`
 
+	// Configuration block with remote access settings. Detailed below.
 	// +kubebuilder:validation:Optional
 	RemoteAccess []RemoteAccessParameters `json:"remoteAccess,omitempty" tf:"remote_access,omitempty"`
 
+	// Configuration block with scaling settings. Detailed below.
 	// +kubebuilder:validation:Required
 	ScalingConfig []ScalingConfigParameters `json:"scalingConfig" tf:"scaling_config,omitempty"`
 
+	// –  Identifiers of EC2 Subnets to associate with the EKS Node Group. These subnets must have the following resource tag: kubernetes.io/cluster/CLUSTER_NAME (where CLUSTER_NAME is replaced with the name of the EKS Cluster).
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-jet-aws/apis/ec2/v1alpha2.Subnet
 	// +kubebuilder:validation:Optional
 	SubnetIds []*string `json:"subnetIds,omitempty" tf:"subnet_ids,omitempty"`
@@ -133,15 +157,18 @@ type NodeGroupParameters struct {
 	// +kubebuilder:validation:Optional
 	SubnetIdsSelector *v1.Selector `json:"subnetIdsSelector,omitempty" tf:"-"`
 
+	// Key-value map of resource tags. If configured with a provider default_tags configuration block present, tags with matching keys will overwrite those defined at the provider-level.
 	// +kubebuilder:validation:Optional
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
+	// The Kubernetes taints to be applied to the nodes in the node group. Maximum of 50 taints per node group. Detailed below.
 	// +kubebuilder:validation:Optional
 	Taint []TaintParameters `json:"taint,omitempty" tf:"taint,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	UpdateConfig []UpdateConfigParameters `json:"updateConfig,omitempty" tf:"update_config,omitempty"`
 
+	// –  Kubernetes version. Defaults to EKS Cluster Kubernetes version.
 	// +kubebuilder:validation:Optional
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }
@@ -151,9 +178,11 @@ type RemoteAccessObservation struct {
 
 type RemoteAccessParameters struct {
 
+	// EC2 Key Pair name that provides access for SSH communication with the worker nodes in the EKS Node Group. If you specify this configuration, but do not specify source_security_group_ids when you create an EKS Node Group, port 22 on the worker nodes is opened to the Internet (0.0.0.0/0).
 	// +kubebuilder:validation:Optional
 	EC2SSHKey *string `json:"ec2SshKey,omitempty" tf:"ec2_ssh_key,omitempty"`
 
+	// Set of EC2 Security Group IDs to allow SSH access (port 22) from on the worker nodes. If you specify ec2_ssh_key, but do not specify this configuration when you create an EKS Node Group, port 22 on the worker nodes is opened to the Internet (0.0.0.0/0).
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-jet-aws/apis/ec2/v1alpha2.SecurityGroup
 	// +kubebuilder:validation:Optional
 	SourceSecurityGroupIds []*string `json:"sourceSecurityGroupIds,omitempty" tf:"source_security_group_ids,omitempty"`
@@ -168,8 +197,11 @@ type RemoteAccessParameters struct {
 }
 
 type ResourcesObservation struct {
+
+	// List of objects containing information about AutoScaling Groups.
 	AutoscalingGroups []AutoscalingGroupsObservation `json:"autoscalingGroups,omitempty" tf:"autoscaling_groups,omitempty"`
 
+	// Identifier of the remote access EC2 Security Group.
 	RemoteAccessSecurityGroupID *string `json:"remoteAccessSecurityGroupId,omitempty" tf:"remote_access_security_group_id,omitempty"`
 }
 
@@ -181,12 +213,15 @@ type ScalingConfigObservation struct {
 
 type ScalingConfigParameters struct {
 
+	// Desired number of worker nodes.
 	// +kubebuilder:validation:Required
 	DesiredSize *float64 `json:"desiredSize" tf:"desired_size,omitempty"`
 
+	// Maximum number of worker nodes.
 	// +kubebuilder:validation:Required
 	MaxSize *float64 `json:"maxSize" tf:"max_size,omitempty"`
 
+	// Minimum number of worker nodes.
 	// +kubebuilder:validation:Required
 	MinSize *float64 `json:"minSize" tf:"min_size,omitempty"`
 }
@@ -196,12 +231,15 @@ type TaintObservation struct {
 
 type TaintParameters struct {
 
+	// The effect of the taint. Valid values: NO_SCHEDULE, NO_EXECUTE, PREFER_NO_SCHEDULE.
 	// +kubebuilder:validation:Required
 	Effect *string `json:"effect" tf:"effect,omitempty"`
 
+	// The key of the taint. Maximum length of 63.
 	// +kubebuilder:validation:Required
 	Key *string `json:"key" tf:"key,omitempty"`
 
+	// The value of the taint. Maximum length of 63.
 	// +kubebuilder:validation:Optional
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
@@ -211,9 +249,11 @@ type UpdateConfigObservation struct {
 
 type UpdateConfigParameters struct {
 
+	// Desired max number of unavailable worker nodes during node group update.
 	// +kubebuilder:validation:Optional
 	MaxUnavailable *float64 `json:"maxUnavailable,omitempty" tf:"max_unavailable,omitempty"`
 
+	// Desired max percentage of unavailable worker nodes during node group update.
 	// +kubebuilder:validation:Optional
 	MaxUnavailablePercentage *float64 `json:"maxUnavailablePercentage,omitempty" tf:"max_unavailable_percentage,omitempty"`
 }
@@ -232,7 +272,7 @@ type NodeGroupStatus struct {
 
 // +kubebuilder:object:root=true
 
-// NodeGroup is the Schema for the NodeGroups API. <no value>
+// NodeGroup is the Schema for the NodeGroups API. Manages an EKS Node Group
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

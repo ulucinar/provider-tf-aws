@@ -30,50 +30,67 @@ type InlinePolicyObservation struct {
 
 type InlinePolicyParameters struct {
 
+	// Friendly name of the role. See IAM Identifiers for more information.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Policy document as a JSON formatted string.
 	// +kubebuilder:validation:Optional
 	Policy *string `json:"policy,omitempty" tf:"policy,omitempty"`
 }
 
 type RoleObservation struct {
+
+	// Amazon Resource Name (ARN) specifying the role.
 	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
 
+	// Creation date of the IAM role.
 	CreateDate *string `json:"createDate,omitempty" tf:"create_date,omitempty"`
 
+	// Name of the role.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// Set of exclusive IAM managed policy ARNs to attach to the IAM role. Configuring an empty set (i.e.
 	ManagedPolicyArns []*string `json:"managedPolicyArns,omitempty" tf:"managed_policy_arns,omitempty"`
 
+	// A map of tags assigned to the resource, including those inherited from the provider default_tags configuration block.
 	TagsAll map[string]*string `json:"tagsAll,omitempty" tf:"tags_all,omitempty"`
 
+	// Stable and unique string identifying the role.
 	UniqueID *string `json:"uniqueId,omitempty" tf:"unique_id,omitempty"`
 }
 
 type RoleParameters struct {
 
+	// Policy that grants an entity permission to assume the role.
 	// +kubebuilder:validation:Required
 	AssumeRolePolicy *string `json:"assumeRolePolicy" tf:"assume_role_policy,omitempty"`
 
+	// Description of the role.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// Whether to force detaching any policies the role has before destroying it. Defaults to false.
 	// +kubebuilder:validation:Optional
 	ForceDetachPolicies *bool `json:"forceDetachPolicies,omitempty" tf:"force_detach_policies,omitempty"`
 
+	// Configuration block defining an exclusive set of IAM inline policies associated with the IAM role. See below. Configuring one empty block (i.e.
 	// +kubebuilder:validation:Optional
 	InlinePolicy []InlinePolicyParameters `json:"inlinePolicy,omitempty" tf:"inline_policy,omitempty"`
 
+	// Maximum session duration (in seconds) that you want to set for the specified role. If you do not specify a value for this setting, the default maximum of one hour is applied. This setting can have a value from 1 hour to 12 hours.
 	// +kubebuilder:validation:Optional
 	MaxSessionDuration *float64 `json:"maxSessionDuration,omitempty" tf:"max_session_duration,omitempty"`
 
+	// Path to the role. See IAM Identifiers for more information.
 	// +kubebuilder:validation:Optional
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
 
+	// ARN of the policy that is used to set the permissions boundary for the role.
 	// +kubebuilder:validation:Optional
 	PermissionsBoundary *string `json:"permissionsBoundary,omitempty" tf:"permissions_boundary,omitempty"`
 
+	// Key-value mapping of tags for the IAM role. If configured with a provider default_tags configuration block present, tags with matching keys will overwrite those defined at the provider-level.
 	// +kubebuilder:validation:Optional
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
@@ -92,7 +109,7 @@ type RoleStatus struct {
 
 // +kubebuilder:object:root=true
 
-// Role is the Schema for the Roles API. <no value>
+// Role is the Schema for the Roles API. Provides an IAM role.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

@@ -1,0 +1,17 @@
+apiVersion: ec2.aws.jet.crossplane.io/v1alpha2
+kind: EBSVolume
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1alpha2/ebsvolume
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    availabilityZone: us-west-2a
+    size: 40
+    tags:
+      Name: HelloWorld
+
+---
+

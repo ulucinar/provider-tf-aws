@@ -1,0 +1,21 @@
+apiVersion: route53.aws.jet.crossplane.io/v1alpha2
+kind: Record
+metadata:
+  annotations:
+    meta.upbound.io/example-id: route53/v1alpha2/record
+  labels:
+    testing.upbound.io/example-name: www
+  name: www
+spec:
+  forProvider:
+    name: www.example.com
+    records:
+    - ${aws_eip.lb.public_ip}
+    ttl: "300"
+    type: A
+    zoneIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: primary
+
+---
+

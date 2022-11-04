@@ -26,13 +26,17 @@ import (
 )
 
 type FirewallConfigObservation struct {
+
+	// The ID of the firewall configuration.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// The AWS account ID of the owner of the VPC that this firewall configuration applies to.
 	OwnerID *string `json:"ownerId,omitempty" tf:"owner_id,omitempty"`
 }
 
 type FirewallConfigParameters struct {
 
+	// Determines how Route 53 Resolver handles queries during failures, for example when all traffic that is sent to DNS Firewall fails to receive a reply. By default, fail open is disabled, which means the failure mode is closed. This approach favors security over availability. DNS Firewall blocks queries that it is unable to evaluate properly. If you enable this option, the failure mode is open. This approach favors availability over security. DNS Firewall allows queries to proceed if it is unable to properly evaluate them. Valid values: ENABLED, DISABLED.
 	// +kubebuilder:validation:Optional
 	FirewallFailOpen *string `json:"firewallFailOpen,omitempty" tf:"firewall_fail_open,omitempty"`
 
@@ -41,6 +45,7 @@ type FirewallConfigParameters struct {
 	// +kubebuilder:validation:Required
 	Region *string `json:"region" tf:"-"`
 
+	// The ID of the VPC that the configuration is for.
 	// +kubebuilder:validation:Required
 	ResourceID *string `json:"resourceId" tf:"resource_id,omitempty"`
 }
@@ -59,7 +64,7 @@ type FirewallConfigStatus struct {
 
 // +kubebuilder:object:root=true
 
-// FirewallConfig is the Schema for the FirewallConfigs API. <no value>
+// FirewallConfig is the Schema for the FirewallConfigs API. Provides a Route 53 Resolver DNS Firewall config resource.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

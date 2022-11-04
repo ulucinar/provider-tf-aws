@@ -1,0 +1,17 @@
+apiVersion: neptune.aws.jet.crossplane.io/v1alpha2
+kind: ClusterEndpoint
+metadata:
+  annotations:
+    meta.upbound.io/example-id: neptune/v1alpha2/clusterendpoint
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    clusterIdentifierSelector:
+      matchLabels:
+        testing.upbound.io/example-name: test
+    endpointType: READER
+
+---
+

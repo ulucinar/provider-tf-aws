@@ -1,0 +1,14 @@
+apiVersion: ec2.aws.jet.crossplane.io/v1alpha2
+kind: TransitGateway
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1alpha2/transitgateway
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    description: example
+
+---
+

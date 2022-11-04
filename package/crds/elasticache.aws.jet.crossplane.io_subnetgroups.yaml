@@ -35,7 +35,8 @@ spec:
     name: v1alpha2
     schema:
       openAPIV3Schema:
-        description: SubnetGroup is the Schema for the SubnetGroups API. <no value>
+        description: SubnetGroup is the Schema for the SubnetGroups API. Provides
+          an ElastiCache Subnet Group resource.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -64,12 +65,14 @@ spec:
               forProvider:
                 properties:
                   description:
+                    description: –  Description for the cache subnet group.
                     type: string
                   region:
                     description: Region is the region you'd like your resource to
                       be created in.
                     type: string
                   subnetIds:
+                    description: –  List of VPC Subnet IDs for the cache subnet group
                     items:
                       type: string
                     type: array
@@ -153,6 +156,9 @@ spec:
                   tags:
                     additionalProperties:
                       type: string
+                    description: Key-value map of resource tags. If configured with
+                      a provider default_tags configuration block present, tags with
+                      matching keys will overwrite those defined at the provider-level.
                     type: object
                 required:
                 - region
@@ -340,6 +346,9 @@ spec:
                   tagsAll:
                     additionalProperties:
                       type: string
+                    description: A map of tags assigned to the resource, including
+                      those inherited from the provider default_tags configuration
+                      block.
                     type: object
                 type: object
               conditions:

@@ -1,0 +1,31 @@
+apiVersion: ec2.aws.jet.crossplane.io/v1alpha2
+kind: VPCIPv4CidrBlockAssociation
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1alpha2/vpcipv4cidrblockassociation
+  labels:
+    testing.upbound.io/example-name: secondary_cidr
+  name: secondary-cidr
+spec:
+  forProvider:
+    cidrBlock: 172.2.0.0/16
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: main
+
+---
+
+apiVersion: ec2.aws.jet.crossplane.io/v1alpha2
+kind: VPC
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1alpha2/vpcipv4cidrblockassociation
+  labels:
+    testing.upbound.io/example-name: main
+  name: main
+spec:
+  forProvider:
+    cidrBlock: 10.0.0.0/16
+
+---
+

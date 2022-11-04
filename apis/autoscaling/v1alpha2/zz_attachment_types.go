@@ -31,6 +31,7 @@ type AttachmentObservation struct {
 
 type AttachmentParameters struct {
 
+	// The ARN of an ALB Target Group.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-jet-aws/apis/elbv2/v1alpha2.LBTargetGroup
 	// +crossplane:generate:reference:extractor=github.com/crossplane-contrib/provider-jet-aws/config/common.ARNExtractor()
 	// +kubebuilder:validation:Optional
@@ -44,6 +45,7 @@ type AttachmentParameters struct {
 	// +kubebuilder:validation:Optional
 	ALBTargetGroupArnSelector *v1.Selector `json:"albTargetGroupArnSelector,omitempty" tf:"-"`
 
+	// Name of ASG to associate with the ELB.
 	// +crossplane:generate:reference:type=AutoscalingGroup
 	// +kubebuilder:validation:Optional
 	AutoscalingGroupName *string `json:"autoscalingGroupName,omitempty" tf:"autoscaling_group_name,omitempty"`
@@ -56,9 +58,11 @@ type AttachmentParameters struct {
 	// +kubebuilder:validation:Optional
 	AutoscalingGroupNameSelector *v1.Selector `json:"autoscalingGroupNameSelector,omitempty" tf:"-"`
 
+	// The name of the ELB.
 	// +kubebuilder:validation:Optional
 	ELB *string `json:"elb,omitempty" tf:"elb,omitempty"`
 
+	// The ARN of a load balancer target group.
 	// +kubebuilder:validation:Optional
 	LBTargetGroupArn *string `json:"lbTargetGroupArn,omitempty" tf:"lb_target_group_arn,omitempty"`
 
@@ -82,7 +86,7 @@ type AttachmentStatus struct {
 
 // +kubebuilder:object:root=true
 
-// Attachment is the Schema for the Attachments API. <no value>
+// Attachment is the Schema for the Attachments API. Provides an AutoScaling Group Attachment resource.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

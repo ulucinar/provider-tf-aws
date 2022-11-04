@@ -1,0 +1,18 @@
+apiVersion: ec2.aws.jet.crossplane.io/v1alpha2
+kind: InternetGateway
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1alpha2/internetgateway
+  labels:
+    testing.upbound.io/example-name: gw
+  name: gw
+spec:
+  forProvider:
+    tags:
+      Name: main
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: main
+
+---
+

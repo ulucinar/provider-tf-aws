@@ -1,0 +1,18 @@
+apiVersion: rds.aws.jet.crossplane.io/v1alpha2
+kind: SubnetGroup
+metadata:
+  annotations:
+    meta.upbound.io/example-id: rds/v1alpha2/subnetgroup
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+spec:
+  forProvider:
+    subnetIdsRefs:
+    - name: frontend
+    - name: backend
+    tags:
+      Name: My DB subnet group
+
+---
+

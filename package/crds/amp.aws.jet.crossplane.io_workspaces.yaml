@@ -35,7 +35,8 @@ spec:
     name: v1alpha2
     schema:
       openAPIV3Schema:
-        description: Workspace is the Schema for the Workspaces API. <no value>
+        description: Workspace is the Schema for the Workspaces API. Manages an Amazon
+          Managed Service for Prometheus (AMP) Workspace
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -64,6 +65,8 @@ spec:
               forProvider:
                 properties:
                   alias:
+                    description: The alias of the prometheus workspace. See more in
+                      AWS Docs.
                     type: string
                   region:
                     description: Region is the region you'd like your resource to
@@ -72,6 +75,9 @@ spec:
                   tags:
                     additionalProperties:
                       type: string
+                    description: A map of tags to assign to the resource. If configured
+                      with a provider default_tags configuration block present, tags
+                      with matching keys will overwrite those defined at the provider-level.
                     type: object
                 required:
                 - region
@@ -253,14 +259,20 @@ spec:
               atProvider:
                 properties:
                   arn:
+                    description: Amazon Resource Name (ARN) of the workspace.
                     type: string
                   id:
+                    description: Identifier of the workspace
                     type: string
                   prometheusEndpoint:
+                    description: Prometheus endpoint available for this workspace.
                     type: string
                   tagsAll:
                     additionalProperties:
                       type: string
+                    description: A map of tags assigned to the resource, including
+                      those inherited from the provider default_tags configuration
+                      block.
                     type: object
                 type: object
               conditions:

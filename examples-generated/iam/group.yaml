@@ -1,0 +1,14 @@
+apiVersion: iam.aws.jet.crossplane.io/v1alpha2
+kind: Group
+metadata:
+  annotations:
+    meta.upbound.io/example-id: iam/v1alpha2/group
+  labels:
+    testing.upbound.io/example-name: developers
+  name: developers
+spec:
+  forProvider:
+    path: /users/
+
+---
+

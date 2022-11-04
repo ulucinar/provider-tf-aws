@@ -31,9 +31,11 @@ type RuleGroupNamespaceObservation struct {
 
 type RuleGroupNamespaceParameters struct {
 
+	// the rule group namespace data that you want to be applied. See more in AWS Docs.
 	// +kubebuilder:validation:Required
 	Data *string `json:"data" tf:"data,omitempty"`
 
+	// The name of the rule group namespace
 	// +kubebuilder:validation:Required
 	Name *string `json:"name" tf:"name,omitempty"`
 
@@ -42,6 +44,7 @@ type RuleGroupNamespaceParameters struct {
 	// +kubebuilder:validation:Required
 	Region *string `json:"region" tf:"-"`
 
+	// The id of the prometheus workspace the rule group namespace should be linked to
 	// +kubebuilder:validation:Required
 	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
@@ -60,7 +63,7 @@ type RuleGroupNamespaceStatus struct {
 
 // +kubebuilder:object:root=true
 
-// RuleGroupNamespace is the Schema for the RuleGroupNamespaces API. <no value>
+// RuleGroupNamespace is the Schema for the RuleGroupNamespaces API. Manages an Amazon Managed Service for Prometheus (AMP) Rule Group Namespace
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

@@ -26,11 +26,14 @@ import (
 )
 
 type RouteTableAssociationObservation struct {
+
+	// The ID of the association
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type RouteTableAssociationParameters struct {
 
+	// The gateway ID to create an association. Conflicts with subnet_id.
 	// +kubebuilder:validation:Optional
 	GatewayID *string `json:"gatewayId,omitempty" tf:"gateway_id,omitempty"`
 
@@ -39,6 +42,7 @@ type RouteTableAssociationParameters struct {
 	// +kubebuilder:validation:Required
 	Region *string `json:"region" tf:"-"`
 
+	// The ID of the routing table to associate with.
 	// +crossplane:generate:reference:type=RouteTable
 	// +kubebuilder:validation:Optional
 	RouteTableID *string `json:"routeTableId,omitempty" tf:"route_table_id,omitempty"`
@@ -51,6 +55,7 @@ type RouteTableAssociationParameters struct {
 	// +kubebuilder:validation:Optional
 	RouteTableIDSelector *v1.Selector `json:"routeTableIdSelector,omitempty" tf:"-"`
 
+	// The subnet ID to create an association. Conflicts with gateway_id.
 	// +crossplane:generate:reference:type=Subnet
 	// +kubebuilder:validation:Optional
 	SubnetID *string `json:"subnetId,omitempty" tf:"subnet_id,omitempty"`
@@ -78,7 +83,7 @@ type RouteTableAssociationStatus struct {
 
 // +kubebuilder:object:root=true
 
-// RouteTableAssociation is the Schema for the RouteTableAssociations API. <no value>
+// RouteTableAssociation is the Schema for the RouteTableAssociations API. Provides a resource to create an association between a route table and a subnet or a route table and an internet gateway or virtual private gateway.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

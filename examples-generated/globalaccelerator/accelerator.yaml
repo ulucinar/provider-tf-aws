@@ -1,0 +1,20 @@
+apiVersion: globalaccelerator.aws.jet.crossplane.io/v1alpha2
+kind: Accelerator
+metadata:
+  annotations:
+    meta.upbound.io/example-id: globalaccelerator/v1alpha2/accelerator
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    attributes:
+    - flowLogsEnabled: true
+      flowLogsS3Bucket: example-bucket
+      flowLogsS3Prefix: flow-logs/
+    enabled: true
+    ipAddressType: IPV4
+    name: Example
+
+---
+

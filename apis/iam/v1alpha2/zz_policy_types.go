@@ -26,32 +26,44 @@ import (
 )
 
 type PolicyObservation struct {
+
+	// The ARN assigned by AWS to this policy.
 	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
 
+	// The ARN assigned by AWS to this policy.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// The policy's ID.
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
+	// A map of tags assigned to the resource, including those inherited from the provider default_tags configuration block.
 	TagsAll map[string]*string `json:"tagsAll,omitempty" tf:"tags_all,omitempty"`
 }
 
 type PolicyParameters struct {
 
+	// Description of the IAM policy.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// The name of the policy.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Creates a unique name beginning with the specified prefix. Conflicts with name.
 	// +kubebuilder:validation:Optional
 	NamePrefix *string `json:"namePrefix,omitempty" tf:"name_prefix,omitempty"`
 
+	// Path in which to create the policy.
+	// See IAM Identifiers for more information.
 	// +kubebuilder:validation:Optional
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
 
+	// The policy document. This is a JSON formatted string
 	// +kubebuilder:validation:Required
 	Policy *string `json:"policy" tf:"policy,omitempty"`
 
+	// Map of resource tags for the IAM Policy. If configured with a provider default_tags configuration block present, tags with matching keys will overwrite those defined at the provider-level.
 	// +kubebuilder:validation:Optional
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
@@ -70,7 +82,7 @@ type PolicyStatus struct {
 
 // +kubebuilder:object:root=true
 
-// Policy is the Schema for the Policys API. <no value>
+// Policy is the Schema for the Policys API. Provides an IAM policy.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

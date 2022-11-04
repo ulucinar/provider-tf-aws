@@ -35,7 +35,8 @@ spec:
     name: v1alpha2
     schema:
       openAPIV3Schema:
-        description: SecurityGroup is the Schema for the SecurityGroups API. <no value>
+        description: SecurityGroup is the Schema for the SecurityGroups API. Provides
+          a security group resource.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -64,27 +65,50 @@ spec:
               forProvider:
                 properties:
                   description:
+                    description: 'Security group description. Cannot be "". NOTE:
+                      This field maps to the AWS GroupDescription attribute, for which
+                      there is no Update API. If you''d like to classify your security
+                      groups in a way that can be updated, use tags.'
                     type: string
                   egress:
+                    description: Configuration block for egress rules. Can be specified
+                      multiple times for each egress rule. Each egress block supports
+                      fields documented below. This argument is processed in attribute-as-blocks
+                      mode.
                     items:
                       properties:
                         cidrBlocks:
+                          description: List of CIDR blocks.
                           items:
                             type: string
                           type: array
                         description:
+                          description: 'Security group description. Cannot be "".
+                            NOTE: This field maps to the AWS GroupDescription attribute,
+                            for which there is no Update API. If you''d like to classify
+                            your security groups in a way that can be updated, use
+                            tags.'
                           type: string
                         fromPort:
+                          description: Start port (or ICMP type number if protocol
+                            is icmp or icmpv6).
                           type: number
                         ipv6CidrBlocks:
+                          description: List of IPv6 CIDR blocks.
                           items:
                             type: string
                           type: array
                         prefixListIds:
+                          description: List of Prefix List IDs.
                           items:
                             type: string
                           type: array
                         protocol:
+                          description: Protocol. If you select a protocol of -1 (semantically
+                            equivalent to all, which is not a valid value here), you
+                            must specify a from_port and to_port equal to 0.  The
+                            supported values are defined in the IpProtocol argument
+                            on the IpPermission API reference.12.
                           type: string
                         securityGroupRefs:
                           description: References to SecurityGroup to populate securityGroups.
@@ -168,35 +192,60 @@ spec:
                               type: object
                           type: object
                         securityGroups:
+                          description: List of security group Group Names if using
+                            EC2-Classic, or Group IDs if using a VPC.
                           items:
                             type: string
                           type: array
                         self:
+                          description: Whether the security group itself will be added
+                            as a source to this ingress rule.
                           type: boolean
                         toPort:
+                          description: End range port (or ICMP code if protocol is
+                            icmp).
                           type: number
                       type: object
                     type: array
                   ingress:
+                    description: Configuration block for ingress rules. Can be specified
+                      multiple times for each ingress rule. Each ingress block supports
+                      fields documented below. This argument is processed in attribute-as-blocks
+                      mode.
                     items:
                       properties:
                         cidrBlocks:
+                          description: List of CIDR blocks.
                           items:
                             type: string
                           type: array
                         description:
+                          description: 'Security group description. Cannot be "".
+                            NOTE: This field maps to the AWS GroupDescription attribute,
+                            for which there is no Update API. If you''d like to classify
+                            your security groups in a way that can be updated, use
+                            tags.'
                           type: string
                         fromPort:
+                          description: Start port (or ICMP type number if protocol
+                            is icmp or icmpv6).
                           type: number
                         ipv6CidrBlocks:
+                          description: List of IPv6 CIDR blocks.
                           items:
                             type: string
                           type: array
                         prefixListIds:
+                          description: List of Prefix List IDs.
                           items:
                             type: string
                           type: array
                         protocol:
+                          description: Protocol. If you select a protocol of -1 (semantically
+                            equivalent to all, which is not a valid value here), you
+                            must specify a from_port and to_port equal to 0.  The
+                            supported values are defined in the IpProtocol argument
+                            on the IpPermission API reference.12.
                           type: string
                         securityGroupRefs:
                           description: References to SecurityGroup to populate securityGroups.
@@ -280,30 +329,49 @@ spec:
                               type: object
                           type: object
                         securityGroups:
+                          description: List of security group Group Names if using
+                            EC2-Classic, or Group IDs if using a VPC.
                           items:
                             type: string
                           type: array
                         self:
+                          description: Whether the security group itself will be added
+                            as a source to this ingress rule.
                           type: boolean
                         toPort:
+                          description: End range port (or ICMP code if protocol is
+                            icmp).
                           type: number
                       type: object
                     type: array
                   name:
+                    description: Name of the security group.
                     type: string
                   namePrefix:
+                    description: Creates a unique name beginning with the specified
+                      prefix. Conflicts with name.
                     type: string
                   region:
                     description: Region is the region you'd like your resource to
                       be created in.
                     type: string
                   revokeRulesOnDelete:
+                    description: This is normally not needed, however certain AWS
+                      services such as Elastic Map Reduce may automatically add required
+                      rules to security groups used with the service, and those rules
+                      may contain a cyclic dependency that prevent the security groups
+                      from being destroyed without removing the dependency first.
+                      Default false.
                     type: boolean
                   tags:
                     additionalProperties:
                       type: string
+                    description: Map of tags to assign to the resource. If configured
+                      with a provider default_tags configuration block present, tags
+                      with matching keys will overwrite those defined at the provider-level.
                     type: object
                   vpcId:
+                    description: VPC ID.
                     type: string
                   vpcIdRef:
                     description: Reference to a VPC in ec2 to populate vpcId.
@@ -560,22 +628,36 @@ spec:
               atProvider:
                 properties:
                   arn:
+                    description: ARN of the security group.
                     type: string
                   egress:
+                    description: Configuration block for egress rules. Can be specified
+                      multiple times for each egress rule. Each egress block supports
+                      fields documented below. This argument is processed in attribute-as-blocks
+                      mode.
                     items:
                       type: object
                     type: array
                   id:
+                    description: ID of the security group.
                     type: string
                   ingress:
+                    description: Configuration block for ingress rules. Can be specified
+                      multiple times for each ingress rule. Each ingress block supports
+                      fields documented below. This argument is processed in attribute-as-blocks
+                      mode.
                     items:
                       type: object
                     type: array
                   ownerId:
+                    description: Owner ID.
                     type: string
                   tagsAll:
                     additionalProperties:
                       type: string
+                    description: A map of tags assigned to the resource, including
+                      those inherited from the provider default_tags configuration
+                      block.
                     type: object
                 type: object
               conditions:

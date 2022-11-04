@@ -36,7 +36,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: UserPolicyAttachment is the Schema for the UserPolicyAttachments
-          API. <no value>
+          API. Attaches a Managed IAM Policy to an IAM user
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -65,6 +65,7 @@ spec:
               forProvider:
                 properties:
                   policyArn:
+                    description: The ARN of the policy you want to apply
                     type: string
                   policyArnRef:
                     description: Reference to a Policy to populate policyArn.
@@ -140,6 +141,7 @@ spec:
                         type: object
                     type: object
                   user:
+                    description: The user the policy should be applied to
                     type: string
                   userRef:
                     description: Reference to a User to populate user.

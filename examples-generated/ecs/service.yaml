@@ -1,0 +1,31 @@
+apiVersion: ecs.aws.jet.crossplane.io/v1alpha2
+kind: Service
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ecs/v1alpha2/service
+  labels:
+    testing.upbound.io/example-name: mongo
+  name: mongo
+spec:
+  forProvider:
+    clusterSelector:
+      matchLabels:
+        testing.upbound.io/example-name: foo
+    desiredCount: 3
+    iamRoleSelector:
+      matchLabels:
+        testing.upbound.io/example-name: foo
+    loadBalancer:
+    - containerName: mongo
+      containerPort: 8080
+      targetGroupArn: ${aws_lb_target_group.foo.arn}
+    orderedPlacementStrategy:
+    - field: cpu
+      type: binpack
+    placementConstraints:
+    - expression: attribute:ecs.availability-zone in [us-west-2a, us-west-2b]
+      type: memberOf
+    taskDefinition: ${aws_ecs_task_definition.mongo.arn}
+
+---
+

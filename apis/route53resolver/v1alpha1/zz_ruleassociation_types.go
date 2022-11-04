@@ -26,11 +26,14 @@ import (
 )
 
 type RuleAssociationObservation struct {
+
+	// The ID of the resolver rule association.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type RuleAssociationParameters struct {
 
+	// A name for the association that you're creating between a resolver rule and a VPC.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -39,9 +42,11 @@ type RuleAssociationParameters struct {
 	// +kubebuilder:validation:Required
 	Region *string `json:"region" tf:"-"`
 
+	// The ID of the resolver rule that you want to associate with the VPC.
 	// +kubebuilder:validation:Required
 	ResolverRuleID *string `json:"resolverRuleId" tf:"resolver_rule_id,omitempty"`
 
+	// The ID of the VPC that you want to associate the resolver rule with.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-jet-aws/apis/ec2/v1alpha2.VPC
 	// +kubebuilder:validation:Optional
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
@@ -69,7 +74,7 @@ type RuleAssociationStatus struct {
 
 // +kubebuilder:object:root=true
 
-// RuleAssociation is the Schema for the RuleAssociations API. <no value>
+// RuleAssociation is the Schema for the RuleAssociations API. Provides a Route53 Resolver rule association.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

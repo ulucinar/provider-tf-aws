@@ -36,7 +36,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: RuleGroupNamespace is the Schema for the RuleGroupNamespaces
-          API. <no value>
+          API. Manages an Amazon Managed Service for Prometheus (AMP) Rule Group Namespace
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -65,14 +65,19 @@ spec:
               forProvider:
                 properties:
                   data:
+                    description: the rule group namespace data that you want to be
+                      applied. See more in AWS Docs.
                     type: string
                   name:
+                    description: The name of the rule group namespace
                     type: string
                   region:
                     description: Region is the region you'd like your resource to
                       be created in.
                     type: string
                   workspaceId:
+                    description: The id of the prometheus workspace the rule group
+                      namespace should be linked to
                     type: string
                 required:
                 - data

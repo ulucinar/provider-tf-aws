@@ -26,17 +26,23 @@ import (
 )
 
 type RouteTableObservation struct {
+
+	// The ARN of the route table.
 	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
 
+	// The ID of the routing table.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// The ID of the AWS account that owns the route table.
 	OwnerID *string `json:"ownerId,omitempty" tf:"owner_id,omitempty"`
 
+	// A map of tags assigned to the resource, including those inherited from the provider default_tags configuration block.
 	TagsAll map[string]*string `json:"tagsAll,omitempty" tf:"tags_all,omitempty"`
 }
 
 type RouteTableParameters struct {
 
+	// A list of virtual gateways for propagation.
 	// +kubebuilder:validation:Optional
 	PropagatingVgws []*string `json:"propagatingVgws,omitempty" tf:"propagating_vgws,omitempty"`
 
@@ -45,12 +51,16 @@ type RouteTableParameters struct {
 	// +kubebuilder:validation:Required
 	Region *string `json:"region" tf:"-"`
 
+	// A list of route objects. Their keys are documented below. This argument is processed in attribute-as-blocks mode.
+	// This means that omitting this argument is interpreted as ignoring any existing routes. To remove all managed routes an empty list should be specified. See the example above.
 	// +kubebuilder:validation:Optional
 	Route []RouteTableRouteParameters `json:"route,omitempty" tf:"route,omitempty"`
 
+	// A map of tags to assign to the resource. If configured with a provider default_tags configuration block present, tags with matching keys will overwrite those defined at the provider-level.
 	// +kubebuilder:validation:Optional
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
+	// The VPC ID.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-jet-aws/apis/ec2/v1alpha2.VPC
 	// +kubebuilder:validation:Optional
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
@@ -69,27 +79,35 @@ type RouteTableRouteObservation struct {
 
 type RouteTableRouteParameters struct {
 
+	// Identifier of a carrier gateway. This attribute can only be used when the VPC contains a subnet which is associated with a Wavelength Zone.
 	// +kubebuilder:validation:Optional
 	CarrierGatewayID *string `json:"carrierGatewayId,omitempty" tf:"carrier_gateway_id"`
 
+	// The CIDR block of the route.
 	// +kubebuilder:validation:Optional
 	CidrBlock *string `json:"cidrBlock,omitempty" tf:"cidr_block"`
 
+	// The Amazon Resource Name (ARN) of a core network.
 	// +kubebuilder:validation:Optional
 	CoreNetworkArn *string `json:"coreNetworkArn,omitempty" tf:"core_network_arn"`
 
+	// The ID of a managed prefix list destination of the route.
 	// +kubebuilder:validation:Optional
 	DestinationPrefixListID *string `json:"destinationPrefixListId,omitempty" tf:"destination_prefix_list_id"`
 
+	// Identifier of a VPC Egress Only Internet Gateway.
 	// +kubebuilder:validation:Optional
 	EgressOnlyGatewayID *string `json:"egressOnlyGatewayId,omitempty" tf:"egress_only_gateway_id"`
 
+	// Identifier of a VPC internet gateway or a virtual private gateway.
 	// +kubebuilder:validation:Optional
 	GatewayID *string `json:"gatewayId,omitempty" tf:"gateway_id"`
 
+	// The Ipv6 CIDR block of the route.
 	// +kubebuilder:validation:Optional
 	IPv6CidrBlock *string `json:"ipv6CidrBlock,omitempty" tf:"ipv6_cidr_block"`
 
+	// Identifier of an EC2 instance.
 	// +crossplane:generate:reference:type=Instance
 	// +kubebuilder:validation:Optional
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id"`
@@ -102,12 +120,15 @@ type RouteTableRouteParameters struct {
 	// +kubebuilder:validation:Optional
 	InstanceIDSelector *v1.Selector `json:"instanceIdSelector,omitempty" tf:"-"`
 
+	// Identifier of a Outpost local gateway.
 	// +kubebuilder:validation:Optional
 	LocalGatewayID *string `json:"localGatewayId,omitempty" tf:"local_gateway_id"`
 
+	// Identifier of a VPC NAT gateway.
 	// +kubebuilder:validation:Optional
 	NATGatewayID *string `json:"natGatewayId,omitempty" tf:"nat_gateway_id"`
 
+	// Identifier of an EC2 network interface.
 	// +crossplane:generate:reference:type=NetworkInterface
 	// +kubebuilder:validation:Optional
 	NetworkInterfaceID *string `json:"networkInterfaceId,omitempty" tf:"network_interface_id"`
@@ -120,9 +141,11 @@ type RouteTableRouteParameters struct {
 	// +kubebuilder:validation:Optional
 	NetworkInterfaceIDSelector *v1.Selector `json:"networkInterfaceIdSelector,omitempty" tf:"-"`
 
+	// Identifier of an EC2 Transit Gateway.
 	// +kubebuilder:validation:Optional
 	TransitGatewayID *string `json:"transitGatewayId,omitempty" tf:"transit_gateway_id"`
 
+	// Identifier of a VPC Endpoint.
 	// +crossplane:generate:reference:type=VPCEndpoint
 	// +kubebuilder:validation:Optional
 	VPCEndpointID *string `json:"vpcEndpointId,omitempty" tf:"vpc_endpoint_id"`
@@ -135,6 +158,7 @@ type RouteTableRouteParameters struct {
 	// +kubebuilder:validation:Optional
 	VPCEndpointIDSelector *v1.Selector `json:"vpcEndpointIdSelector,omitempty" tf:"-"`
 
+	// Identifier of a VPC peering connection.
 	// +crossplane:generate:reference:type=VPCPeeringConnection
 	// +kubebuilder:validation:Optional
 	VPCPeeringConnectionID *string `json:"vpcPeeringConnectionId,omitempty" tf:"vpc_peering_connection_id"`
@@ -162,7 +186,7 @@ type RouteTableStatus struct {
 
 // +kubebuilder:object:root=true
 
-// RouteTable is the Schema for the RouteTables API. <no value>
+// RouteTable is the Schema for the RouteTables API. Provides a resource to create a VPC routing table.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

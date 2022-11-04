@@ -1,0 +1,14 @@
+apiVersion: route53resolver.aws.jet.crossplane.io/v1alpha1
+kind: FirewallDomainList
+metadata:
+  annotations:
+    meta.upbound.io/example-id: route53resolver/v1alpha1/firewalldomainlist
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    name: example
+
+---
+

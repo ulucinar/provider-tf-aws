@@ -1,0 +1,17 @@
+apiVersion: iam.aws.jet.crossplane.io/v1alpha2
+kind: OpenIDConnectProvider
+metadata:
+  annotations:
+    meta.upbound.io/example-id: iam/v1alpha2/openidconnectprovider
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+spec:
+  forProvider:
+    clientIdList:
+    - 266362248691-342342xasdasdasda-apps.googleusercontent.com
+    thumbprintList: []
+    url: https://accounts.google.com
+
+---
+

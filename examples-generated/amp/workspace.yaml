@@ -1,0 +1,17 @@
+apiVersion: amp.aws.jet.crossplane.io/v1alpha2
+kind: Workspace
+metadata:
+  annotations:
+    meta.upbound.io/example-id: amp/v1alpha2/workspace
+  labels:
+    testing.upbound.io/example-name: demo
+  name: demo
+spec:
+  forProvider:
+    alias: prometheus-test
+    tags:
+      Environment: production
+      Owner: abhi
+
+---
+

@@ -1,0 +1,48 @@
+apiVersion: iam.aws.jet.crossplane.io/v1alpha2
+kind: UserPolicyAttachment
+metadata:
+  annotations:
+    meta.upbound.io/example-id: iam/v1alpha2/userpolicyattachment
+  labels:
+    testing.upbound.io/example-name: test-attach
+  name: test-attach
+spec:
+  forProvider:
+    policyArnSelector:
+      matchLabels:
+        testing.upbound.io/example-name: policy
+    userSelector:
+      matchLabels:
+        testing.upbound.io/example-name: user
+
+---
+
+apiVersion: iam.aws.jet.crossplane.io/v1alpha2
+kind: Policy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: iam/v1alpha2/userpolicyattachment
+  labels:
+    testing.upbound.io/example-name: policy
+  name: policy
+spec:
+  forProvider:
+    description: A test policy
+    name: test-policy
+    policy: '{ ... policy JSON ... }'
+
+---
+
+apiVersion: iam.aws.jet.crossplane.io/v1alpha2
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: iam/v1alpha2/userpolicyattachment
+  labels:
+    testing.upbound.io/example-name: user
+  name: user
+spec:
+  forProvider: {}
+
+---
+

@@ -31,6 +31,7 @@ type GroupPolicyAttachmentObservation struct {
 
 type GroupPolicyAttachmentParameters struct {
 
+	// The group the policy should be applied to
 	// +crossplane:generate:reference:type=Group
 	// +kubebuilder:validation:Optional
 	Group *string `json:"group,omitempty" tf:"group,omitempty"`
@@ -43,6 +44,7 @@ type GroupPolicyAttachmentParameters struct {
 	// +kubebuilder:validation:Optional
 	GroupSelector *v1.Selector `json:"groupSelector,omitempty" tf:"-"`
 
+	// The ARN of the policy you want to apply
 	// +crossplane:generate:reference:type=Policy
 	// +crossplane:generate:reference:extractor=github.com/crossplane-contrib/provider-jet-aws/config/common.ARNExtractor()
 	// +kubebuilder:validation:Optional
@@ -71,7 +73,7 @@ type GroupPolicyAttachmentStatus struct {
 
 // +kubebuilder:object:root=true
 
-// GroupPolicyAttachment is the Schema for the GroupPolicyAttachments API. <no value>
+// GroupPolicyAttachment is the Schema for the GroupPolicyAttachments API. Attaches a Managed IAM Policy to an IAM group
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

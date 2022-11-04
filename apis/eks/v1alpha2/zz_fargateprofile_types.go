@@ -26,17 +26,23 @@ import (
 )
 
 type FargateProfileObservation struct {
+
+	// Amazon Resource Name (ARN) of the EKS Fargate Profile.
 	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
 
+	// EKS Cluster name and EKS Fargate Profile name separated by a colon (:).
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// Status of the EKS Fargate Profile.
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
 
+	// A map of tags assigned to the resource, including those inherited from the provider default_tags configuration block.
 	TagsAll map[string]*string `json:"tagsAll,omitempty" tf:"tags_all,omitempty"`
 }
 
 type FargateProfileParameters struct {
 
+	// 100 characters in length. Must begin with an alphanumeric character, and must only contain alphanumeric characters, dashes and underscores (^[0-9A-Za-z][A-Za-z0-9\-_]+$).
 	// +crossplane:generate:reference:type=Cluster
 	// +kubebuilder:validation:Optional
 	ClusterName *string `json:"clusterName,omitempty" tf:"cluster_name,omitempty"`
@@ -49,6 +55,7 @@ type FargateProfileParameters struct {
 	// +kubebuilder:validation:Optional
 	ClusterNameSelector *v1.Selector `json:"clusterNameSelector,omitempty" tf:"-"`
 
+	// –  Amazon Resource Name (ARN) of the IAM Role that provides permissions for the EKS Fargate Profile.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-jet-aws/apis/iam/v1alpha2.Role
 	// +crossplane:generate:reference:extractor=github.com/crossplane-contrib/provider-jet-aws/config/common.ARNExtractor()
 	// +kubebuilder:validation:Optional
@@ -67,9 +74,11 @@ type FargateProfileParameters struct {
 	// +kubebuilder:validation:Required
 	Region *string `json:"region" tf:"-"`
 
+	// Configuration block(s) for selecting Kubernetes Pods to execute with this EKS Fargate Profile. Detailed below.
 	// +kubebuilder:validation:Required
 	Selector []SelectorParameters `json:"selector" tf:"selector,omitempty"`
 
+	// –  Identifiers of private EC2 Subnets to associate with the EKS Fargate Profile. These subnets must have the following resource tag: kubernetes.io/cluster/CLUSTER_NAME (where CLUSTER_NAME is replaced with the name of the EKS Cluster).
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-jet-aws/apis/ec2/v1alpha2.Subnet
 	// +kubebuilder:validation:Optional
 	SubnetIds []*string `json:"subnetIds,omitempty" tf:"subnet_ids,omitempty"`
@@ -82,6 +91,7 @@ type FargateProfileParameters struct {
 	// +kubebuilder:validation:Optional
 	SubnetIdsSelector *v1.Selector `json:"subnetIdsSelector,omitempty" tf:"-"`
 
+	// Key-value map of resource tags. If configured with a provider default_tags configuration block present, tags with matching keys will overwrite those defined at the provider-level.
 	// +kubebuilder:validation:Optional
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
@@ -91,9 +101,11 @@ type SelectorObservation struct {
 
 type SelectorParameters struct {
 
+	// Key-value map of Kubernetes labels for selection.
 	// +kubebuilder:validation:Optional
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
+	// Kubernetes namespace for selection.
 	// +kubebuilder:validation:Required
 	Namespace *string `json:"namespace" tf:"namespace,omitempty"`
 }
@@ -112,7 +124,7 @@ type FargateProfileStatus struct {
 
 // +kubebuilder:object:root=true
 
-// FargateProfile is the Schema for the FargateProfiles API. <no value>
+// FargateProfile is the Schema for the FargateProfiles API. Manages an EKS Fargate Profile
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

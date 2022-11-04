@@ -26,8 +26,11 @@ import (
 )
 
 type ZoneAssociationObservation struct {
+
+	// The calculated unique identifier for the association.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// The account ID of the account that created the hosted zone.
 	OwningAccount *string `json:"owningAccount,omitempty" tf:"owning_account,omitempty"`
 }
 
@@ -38,6 +41,7 @@ type ZoneAssociationParameters struct {
 	// +kubebuilder:validation:Required
 	Region *string `json:"region" tf:"-"`
 
+	// The VPC to associate with the private hosted zone.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-jet-aws/apis/ec2/v1alpha2.VPC
 	// +kubebuilder:validation:Optional
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
@@ -50,9 +54,11 @@ type ZoneAssociationParameters struct {
 	// +kubebuilder:validation:Optional
 	VPCIDSelector *v1.Selector `json:"vpcIdSelector,omitempty" tf:"-"`
 
+	// The VPC's region. Defaults to the region of the AWS provider.
 	// +kubebuilder:validation:Optional
 	VPCRegion *string `json:"vpcRegion,omitempty" tf:"vpc_region,omitempty"`
 
+	// The private hosted zone to associate.
 	// +crossplane:generate:reference:type=Zone
 	// +kubebuilder:validation:Optional
 	ZoneID *string `json:"zoneId,omitempty" tf:"zone_id,omitempty"`
@@ -80,7 +86,7 @@ type ZoneAssociationStatus struct {
 
 // +kubebuilder:object:root=true
 
-// ZoneAssociation is the Schema for the ZoneAssociations API. <no value>
+// ZoneAssociation is the Schema for the ZoneAssociations API. Manages a Route53 Hosted Zone VPC association
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

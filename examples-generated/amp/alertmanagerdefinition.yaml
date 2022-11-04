@@ -1,0 +1,33 @@
+apiVersion: amp.aws.jet.crossplane.io/v1alpha2
+kind: AlertManagerDefinition
+metadata:
+  annotations:
+    meta.upbound.io/example-id: amp/v1alpha2/alertmanagerdefinition
+  labels:
+    testing.upbound.io/example-name: demo
+  name: demo
+spec:
+  forProvider:
+    definition: |
+      alertmanager_config: |
+        route:
+          receiver: 'default'
+        receivers:
+          - name: 'default'
+    workspaceId: ${aws_prometheus_workspace.demo.id}
+
+---
+
+apiVersion: amp.aws.jet.crossplane.io/v1alpha2
+kind: Workspace
+metadata:
+  annotations:
+    meta.upbound.io/example-id: amp/v1alpha2/alertmanagerdefinition
+  labels:
+    testing.upbound.io/example-name: demo
+  name: demo
+spec:
+  forProvider: {}
+
+---
+

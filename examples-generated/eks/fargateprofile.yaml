@@ -1,0 +1,24 @@
+apiVersion: eks.aws.jet.crossplane.io/v1alpha2
+kind: FargateProfile
+metadata:
+  annotations:
+    meta.upbound.io/example-id: eks/v1alpha2/fargateprofile
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    clusterNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    podExecutionRoleArnSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    selector:
+    - namespace: example
+    subnetIdsSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example[*]
+
+---
+

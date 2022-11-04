@@ -1,0 +1,31 @@
+apiVersion: iam.aws.jet.crossplane.io/v1alpha2
+kind: AccessKey
+metadata:
+  annotations:
+    meta.upbound.io/example-id: iam/v1alpha2/accesskey
+  labels:
+    testing.upbound.io/example-name: lb
+  name: lb
+spec:
+  forProvider:
+    pgpKey: keybase:some_person_that_exists
+    userSelector:
+      matchLabels:
+        testing.upbound.io/example-name: lb
+
+---
+
+apiVersion: iam.aws.jet.crossplane.io/v1alpha2
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: iam/v1alpha2/accesskey
+  labels:
+    testing.upbound.io/example-name: lb
+  name: lb
+spec:
+  forProvider:
+    path: /system/
+
+---
+

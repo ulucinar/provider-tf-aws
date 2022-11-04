@@ -1,0 +1,19 @@
+apiVersion: ec2.aws.jet.crossplane.io/v1alpha2
+kind: RouteTableAssociation
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1alpha2/routetableassociation
+  labels:
+    testing.upbound.io/example-name: a
+  name: a
+spec:
+  forProvider:
+    routeTableIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: bar
+    subnetIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: foo
+
+---
+

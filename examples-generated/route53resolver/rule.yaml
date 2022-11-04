@@ -1,0 +1,15 @@
+apiVersion: route53resolver.aws.jet.crossplane.io/v1alpha1
+kind: Rule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: route53resolver/v1alpha1/rule
+  labels:
+    testing.upbound.io/example-name: sys
+  name: sys
+spec:
+  forProvider:
+    domainName: subdomain.example.com
+    ruleType: SYSTEM
+
+---
+

@@ -26,26 +26,39 @@ import (
 )
 
 type EndpointObservation struct {
+
+	// The ARN of the Route 53 Resolver endpoint.
 	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
 
+	// The ID of the VPC that you want to create the resolver endpoint in.
 	HostVPCID *string `json:"hostVpcId,omitempty" tf:"host_vpc_id,omitempty"`
 
+	// The ID of the Route 53 Resolver endpoint.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// The subnets and IP addresses in your VPC that you want DNS queries to pass through on the way from your VPCs
+	// to your network (for outbound endpoints) or on the way from your network to your VPCs (for inbound endpoints). Described below.
 	// +kubebuilder:validation:Required
 	IPAddress []IPAddressObservation `json:"ipAddress,omitempty" tf:"ip_address,omitempty"`
 
+	// A map of tags assigned to the resource, including those inherited from the provider default_tags configuration block.
 	TagsAll map[string]*string `json:"tagsAll,omitempty" tf:"tags_all,omitempty"`
 }
 
 type EndpointParameters struct {
 
+	// The direction of DNS queries to or from the Route 53 Resolver endpoint.
+	// Valid values are INBOUND (resolver forwards DNS queries to the DNS service for a VPC from your network or another VPC)
+	// or OUTBOUND (resolver forwards DNS queries from the DNS service for a VPC to your network or another VPC).
 	// +kubebuilder:validation:Required
 	Direction *string `json:"direction" tf:"direction,omitempty"`
 
+	// The subnets and IP addresses in your VPC that you want DNS queries to pass through on the way from your VPCs
+	// to your network (for outbound endpoints) or on the way from your network to your VPCs (for inbound endpoints). Described below.
 	// +kubebuilder:validation:Required
 	IPAddress []IPAddressParameters `json:"ipAddress" tf:"ip_address,omitempty"`
 
+	// The friendly name of the Route 53 Resolver endpoint.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -54,22 +67,28 @@ type EndpointParameters struct {
 	// +kubebuilder:validation:Required
 	Region *string `json:"region" tf:"-"`
 
+	// The ID of one or more security groups that you want to use to control access to this VPC.
 	// +kubebuilder:validation:Required
 	SecurityGroupIds []*string `json:"securityGroupIds" tf:"security_group_ids,omitempty"`
 
+	// A map of tags to assign to the resource. If configured with a provider default_tags configuration block present, tags with matching keys will overwrite those defined at the provider-level.
 	// +kubebuilder:validation:Optional
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
 type IPAddressObservation struct {
+
+	// The ID of the Route 53 Resolver endpoint.
 	IPID *string `json:"ipId,omitempty" tf:"ip_id,omitempty"`
 }
 
 type IPAddressParameters struct {
 
+	// The IP address in the subnet that you want to use for DNS queries.
 	// +kubebuilder:validation:Optional
 	IP *string `json:"ip,omitempty" tf:"ip,omitempty"`
 
+	// The ID of the subnet that contains the IP address.
 	// +kubebuilder:validation:Required
 	SubnetID *string `json:"subnetId" tf:"subnet_id,omitempty"`
 }
@@ -88,7 +107,7 @@ type EndpointStatus struct {
 
 // +kubebuilder:object:root=true
 
-// Endpoint is the Schema for the Endpoints API. <no value>
+// Endpoint is the Schema for the Endpoints API. Provides a Route 53 Resolver endpoint resource.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

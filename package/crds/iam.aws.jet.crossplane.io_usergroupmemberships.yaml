@@ -36,7 +36,8 @@ spec:
     schema:
       openAPIV3Schema:
         description: UserGroupMembership is the Schema for the UserGroupMemberships
-          API. <no value>
+          API. Provides a resource for adding an IAM User to IAM Groups without conflicting
+          with itself.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -141,10 +142,12 @@ spec:
                         type: object
                     type: object
                   groups:
+                    description: A list of IAM Groups to add the user to
                     items:
                       type: string
                     type: array
                   user:
+                    description: The name of the IAM User to add to groups
                     type: string
                   userRef:
                     description: Reference to a User to populate user.

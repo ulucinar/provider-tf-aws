@@ -26,58 +26,79 @@ import (
 )
 
 type ClusterObservation struct {
+
+	// The Neptune Cluster Amazon Resource Name (ARN)
 	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
 
+	// – List of Neptune Instances that are a part of this cluster
 	ClusterMembers []*string `json:"clusterMembers,omitempty" tf:"cluster_members,omitempty"`
 
+	// The Neptune Cluster Resource ID
 	ClusterResourceID *string `json:"clusterResourceId,omitempty" tf:"cluster_resource_id,omitempty"`
 
+	// The DNS address of the Neptune instance
 	Endpoint *string `json:"endpoint,omitempty" tf:"endpoint,omitempty"`
 
+	// The Route53 Hosted Zone ID of the endpoint
 	HostedZoneID *string `json:"hostedZoneId,omitempty" tf:"hosted_zone_id,omitempty"`
 
+	// The Neptune Cluster Identifier
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// A read-only endpoint for the Neptune cluster, automatically load-balanced across replicas
 	ReaderEndpoint *string `json:"readerEndpoint,omitempty" tf:"reader_endpoint,omitempty"`
 
+	// A map of tags assigned to the resource, including those inherited from the provider default_tags configuration block.
 	TagsAll map[string]*string `json:"tagsAll,omitempty" tf:"tags_all,omitempty"`
 }
 
 type ClusterParameters struct {
 
+	// Specifies whether upgrades between different major versions are allowed. You must set it to true when providing an engine_version parameter that uses a different major version than the DB cluster's current version. Default is false.
 	// +kubebuilder:validation:Optional
 	AllowMajorVersionUpgrade *bool `json:"allowMajorVersionUpgrade,omitempty" tf:"allow_major_version_upgrade,omitempty"`
 
+	// Specifies whether any cluster modifications are applied immediately, or during the next maintenance window. Default is false.
 	// +kubebuilder:validation:Optional
 	ApplyImmediately *bool `json:"applyImmediately,omitempty" tf:"apply_immediately,omitempty"`
 
+	// A list of EC2 Availability Zones that instances in the Neptune cluster can be created in.
 	// +kubebuilder:validation:Optional
 	AvailabilityZones []*string `json:"availabilityZones,omitempty" tf:"availability_zones,omitempty"`
 
+	// The days to retain backups for. Default 1
 	// +kubebuilder:validation:Optional
 	BackupRetentionPeriod *float64 `json:"backupRetentionPeriod,omitempty" tf:"backup_retention_period,omitempty"`
 
+	// If set to true, tags are copied to any snapshot of the DB cluster that is created.
 	// +kubebuilder:validation:Optional
 	CopyTagsToSnapshot *bool `json:"copyTagsToSnapshot,omitempty" tf:"copy_tags_to_snapshot,omitempty"`
 
+	// A value that indicates whether the DB cluster has deletion protection enabled.The database can't be deleted when deletion protection is enabled. By default, deletion protection is disabled.
 	// +kubebuilder:validation:Optional
 	DeletionProtection *bool `json:"deletionProtection,omitempty" tf:"deletion_protection,omitempty"`
 
+	// A list of the log types this DB cluster is configured to export to Cloudwatch Logs. Currently only supports audit.
 	// +kubebuilder:validation:Optional
 	EnableCloudwatchLogsExports []*string `json:"enableCloudwatchLogsExports,omitempty" tf:"enable_cloudwatch_logs_exports,omitempty"`
 
+	// The name of the database engine to be used for this Neptune cluster. Defaults to neptune.
 	// +kubebuilder:validation:Optional
 	Engine *string `json:"engine,omitempty" tf:"engine,omitempty"`
 
+	// The database engine version.
 	// +kubebuilder:validation:Optional
 	EngineVersion *string `json:"engineVersion,omitempty" tf:"engine_version,omitempty"`
 
+	// The name of your final Neptune snapshot when this Neptune cluster is deleted. If omitted, no final snapshot will be made.
 	// +kubebuilder:validation:Optional
 	FinalSnapshotIdentifier *string `json:"finalSnapshotIdentifier,omitempty" tf:"final_snapshot_identifier,omitempty"`
 
+	// Specifies whether or not mappings of AWS Identity and Access Management (IAM) accounts to database accounts is enabled.
 	// +kubebuilder:validation:Optional
 	IAMDatabaseAuthenticationEnabled *bool `json:"iamDatabaseAuthenticationEnabled,omitempty" tf:"iam_database_authentication_enabled,omitempty"`
 
+	// A List of ARNs for the IAM roles to associate to the Neptune Cluster.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-jet-aws/apis/iam/v1alpha2.Role
 	// +kubebuilder:validation:Optional
 	IAMRoles []*string `json:"iamRoles,omitempty" tf:"iam_roles,omitempty"`
@@ -90,9 +111,11 @@ type ClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	IAMRolesSelector *v1.Selector `json:"iamRolesSelector,omitempty" tf:"-"`
 
+	// The ARN for the KMS encryption key. When specifying kms_key_arn, storage_encrypted needs to be set to true.
 	// +kubebuilder:validation:Optional
 	KMSKeyArn *string `json:"kmsKeyArn,omitempty" tf:"kms_key_arn,omitempty"`
 
+	// A cluster parameter group to associate with the cluster.
 	// +crossplane:generate:reference:type=ClusterParameterGroup
 	// +kubebuilder:validation:Optional
 	NeptuneClusterParameterGroupName *string `json:"neptuneClusterParameterGroupName,omitempty" tf:"neptune_cluster_parameter_group_name,omitempty"`
@@ -105,6 +128,7 @@ type ClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	NeptuneClusterParameterGroupNameSelector *v1.Selector `json:"neptuneClusterParameterGroupNameSelector,omitempty" tf:"-"`
 
+	// A Neptune subnet group to associate with this Neptune instance.
 	// +crossplane:generate:reference:type=SubnetGroup
 	// +kubebuilder:validation:Optional
 	NeptuneSubnetGroupName *string `json:"neptuneSubnetGroupName,omitempty" tf:"neptune_subnet_group_name,omitempty"`
@@ -117,12 +141,15 @@ type ClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	NeptuneSubnetGroupNameSelector *v1.Selector `json:"neptuneSubnetGroupNameSelector,omitempty" tf:"-"`
 
+	// The port on which the Neptune accepts connections. Default is 8182.
 	// +kubebuilder:validation:Optional
 	Port *float64 `json:"port,omitempty" tf:"port,omitempty"`
 
+	// The daily time range during which automated backups are created if automated backups are enabled using the BackupRetentionPeriod parameter. Time in UTC. Default: A 30-minute window selected at random from an 8-hour block of time per regionE.g., 04:00-09:00
 	// +kubebuilder:validation:Optional
 	PreferredBackupWindow *string `json:"preferredBackupWindow,omitempty" tf:"preferred_backup_window,omitempty"`
 
+	// The weekly time range during which system maintenance can occur, in (UTC) e.g., wed:04:00-wed:04:30
 	// +kubebuilder:validation:Optional
 	PreferredMaintenanceWindow *string `json:"preferredMaintenanceWindow,omitempty" tf:"preferred_maintenance_window,omitempty"`
 
@@ -131,6 +158,7 @@ type ClusterParameters struct {
 	// +kubebuilder:validation:Required
 	Region *string `json:"region" tf:"-"`
 
+	// ARN of a source Neptune cluster or Neptune instance if this Neptune cluster is to be created as a Read Replica.
 	// +crossplane:generate:reference:type=Cluster
 	// +kubebuilder:validation:Optional
 	ReplicationSourceIdentifier *string `json:"replicationSourceIdentifier,omitempty" tf:"replication_source_identifier,omitempty"`
@@ -143,9 +171,11 @@ type ClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	ReplicationSourceIdentifierSelector *v1.Selector `json:"replicationSourceIdentifierSelector,omitempty" tf:"-"`
 
+	// Determines whether a final Neptune snapshot is created before the Neptune cluster is deleted. If true is specified, no Neptune snapshot is created. If false is specified, a Neptune snapshot is created before the Neptune cluster is deleted, using the value from final_snapshot_identifier. Default is false.
 	// +kubebuilder:validation:Optional
 	SkipFinalSnapshot *bool `json:"skipFinalSnapshot,omitempty" tf:"skip_final_snapshot,omitempty"`
 
+	// Specifies whether or not to create this cluster from a snapshot. You can use either the name or ARN when specifying a Neptune cluster snapshot, or the ARN when specifying a Neptune snapshot.
 	// +crossplane:generate:reference:type=ClusterSnapshot
 	// +kubebuilder:validation:Optional
 	SnapshotIdentifier *string `json:"snapshotIdentifier,omitempty" tf:"snapshot_identifier,omitempty"`
@@ -158,12 +188,15 @@ type ClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	SnapshotIdentifierSelector *v1.Selector `json:"snapshotIdentifierSelector,omitempty" tf:"-"`
 
+	// Specifies whether the Neptune cluster is encrypted. The default is false if not specified.
 	// +kubebuilder:validation:Optional
 	StorageEncrypted *bool `json:"storageEncrypted,omitempty" tf:"storage_encrypted,omitempty"`
 
+	// A map of tags to assign to the Neptune cluster. If configured with a provider default_tags configuration block present, tags with matching keys will overwrite those defined at the provider-level.
 	// +kubebuilder:validation:Optional
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
+	// List of VPC security groups to associate with the Cluster
 	// +kubebuilder:validation:Optional
 	VPCSecurityGroupIds []*string `json:"vpcSecurityGroupIds,omitempty" tf:"vpc_security_group_ids,omitempty"`
 }
@@ -182,7 +215,7 @@ type ClusterStatus struct {
 
 // +kubebuilder:object:root=true
 
-// Cluster is the Schema for the Clusters API. <no value>
+// Cluster is the Schema for the Clusters API. Provides an Neptune Cluster Resource
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

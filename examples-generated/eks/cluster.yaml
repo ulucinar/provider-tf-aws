@@ -1,0 +1,20 @@
+apiVersion: eks.aws.jet.crossplane.io/v1alpha2
+kind: Cluster
+metadata:
+  annotations:
+    meta.upbound.io/example-id: eks/v1alpha2/cluster
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    roleArnSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    vpcConfig:
+    - subnetIdsRefs:
+      - name: example1
+      - name: example2
+
+---
+

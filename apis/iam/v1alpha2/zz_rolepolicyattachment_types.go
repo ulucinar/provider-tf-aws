@@ -31,6 +31,7 @@ type RolePolicyAttachmentObservation struct {
 
 type RolePolicyAttachmentParameters struct {
 
+	// The ARN of the policy you want to apply
 	// +crossplane:generate:reference:type=Policy
 	// +crossplane:generate:reference:extractor=github.com/crossplane-contrib/provider-jet-aws/config/common.ARNExtractor()
 	// +kubebuilder:validation:Optional
@@ -44,6 +45,7 @@ type RolePolicyAttachmentParameters struct {
 	// +kubebuilder:validation:Optional
 	PolicyArnSelector *v1.Selector `json:"policyArnSelector,omitempty" tf:"-"`
 
+	// The name of the IAM role to which the policy should be applied
 	// +crossplane:generate:reference:type=Role
 	// +kubebuilder:validation:Optional
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
@@ -71,7 +73,7 @@ type RolePolicyAttachmentStatus struct {
 
 // +kubebuilder:object:root=true
 
-// RolePolicyAttachment is the Schema for the RolePolicyAttachments API. <no value>
+// RolePolicyAttachment is the Schema for the RolePolicyAttachments API. Attaches a Managed IAM Policy to an IAM role
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

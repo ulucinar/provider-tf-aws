@@ -1,0 +1,40 @@
+apiVersion: ecs.aws.jet.crossplane.io/v1alpha2
+kind: CapacityProvider
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ecs/v1alpha2/capacityprovider
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    autoScalingGroupProvider:
+    - autoScalingGroupArnSelector:
+        matchLabels:
+          testing.upbound.io/example-name: test
+      managedScaling:
+      - maximumScalingStepSize: 1000
+        minimumScalingStepSize: 1
+        status: ENABLED
+        targetCapacity: 10
+      managedTerminationProtection: ENABLED
+
+---
+
+apiVersion: autoscaling.aws.jet.crossplane.io/v1alpha2
+kind: AutoscalingGroup
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ecs/v1alpha2/capacityprovider
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    tag:
+    - key: AmazonECSManaged
+      propagateAtLaunch: true
+      value: true
+
+---
+

@@ -1,0 +1,18 @@
+apiVersion: ec2.aws.jet.crossplane.io/v1alpha2
+kind: TransitGatewayVPCAttachmentAccepter
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1alpha2/transitgatewayvpcattachmentaccepter
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    tags:
+      Name: Example cross-account attachment
+    transitGatewayAttachmentIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+
+---
+

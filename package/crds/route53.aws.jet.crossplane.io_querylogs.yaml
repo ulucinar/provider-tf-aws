@@ -35,7 +35,8 @@ spec:
     name: v1alpha2
     schema:
       openAPIV3Schema:
-        description: QueryLog is the Schema for the QueryLogs API. <no value>
+        description: QueryLog is the Schema for the QueryLogs API. Provides a Route53
+          query logging configuration resource.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -64,12 +65,14 @@ spec:
               forProvider:
                 properties:
                   cloudwatchLogGroupArn:
+                    description: CloudWatch log group ARN to send query logs.
                     type: string
                   region:
                     description: Region is the region you'd like your resource to
                       be created in.
                     type: string
                   zoneId:
+                    description: Route53 hosted zone ID to enable query logs.
                     type: string
                 required:
                 - cloudwatchLogGroupArn
@@ -253,8 +256,11 @@ spec:
               atProvider:
                 properties:
                   arn:
+                    description: The Amazon Resource Name (ARN) of the Query Logging
+                      Config.
                     type: string
                   id:
+                    description: The query logging configuration ID
                     type: string
                 type: object
               conditions:

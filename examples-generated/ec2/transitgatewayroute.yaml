@@ -1,0 +1,20 @@
+apiVersion: ec2.aws.jet.crossplane.io/v1alpha2
+kind: TransitGatewayRoute
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1alpha2/transitgatewayroute
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    destinationCidrBlock: 0.0.0.0/0
+    transitGatewayAttachmentIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    transitGatewayRouteTableIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+
+---
+

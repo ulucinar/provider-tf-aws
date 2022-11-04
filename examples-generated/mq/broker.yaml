@@ -1,0 +1,28 @@
+apiVersion: mq.aws.jet.crossplane.io/v1alpha2
+kind: Broker
+metadata:
+  annotations:
+    meta.upbound.io/example-id: mq/v1alpha2/broker
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    brokerName: example
+    configuration:
+    - id: ${aws_mq_configuration.test.id}
+      revision: ${aws_mq_configuration.test.latest_revision}
+    engineType: ActiveMQ
+    engineVersion: 5.15.9
+    hostInstanceType: mq.t2.micro
+    securityGroups:
+    - ${aws_security_group.test.id}
+    user:
+    - passwordSecretRef:
+        key: example-key
+        name: example-secret
+        namespace: upbound-system
+      username: ExampleUser
+
+---
+

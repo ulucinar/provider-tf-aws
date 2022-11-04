@@ -26,22 +26,30 @@ import (
 )
 
 type InstanceProfileObservation struct {
+
+	// ARN assigned by AWS to the instance profile.
 	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
 
+	// Creation timestamp of the instance profile.
 	CreateDate *string `json:"createDate,omitempty" tf:"create_date,omitempty"`
 
+	// Instance profile's ID.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// A map of tags assigned to the resource, including those inherited from the provider default_tags configuration block.
 	TagsAll map[string]*string `json:"tagsAll,omitempty" tf:"tags_all,omitempty"`
 
+	// Unique ID assigned by AWS.
 	UniqueID *string `json:"uniqueId,omitempty" tf:"unique_id,omitempty"`
 }
 
 type InstanceProfileParameters struct {
 
+	// Path to the instance profile. For more information about paths, see IAM Identifiers in the IAM User Guide. Can be a string of characters consisting of either a forward slash (/) by itself or a string that must begin and end with forward slashes. Can include any ASCII character from the ! (\u0021) through the DEL character (\u007F), including most punctuation characters, digits, and upper and lowercase letters.
 	// +kubebuilder:validation:Optional
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
 
+	// Name of the role to add to the profile.
 	// +crossplane:generate:reference:type=Role
 	// +kubebuilder:validation:Optional
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
@@ -54,6 +62,7 @@ type InstanceProfileParameters struct {
 	// +kubebuilder:validation:Optional
 	RoleSelector *v1.Selector `json:"roleSelector,omitempty" tf:"-"`
 
+	// Map of resource tags for the IAM Instance Profile. If configured with a provider default_tags configuration block present, tags with matching keys will overwrite those defined at the provider-level.
 	// +kubebuilder:validation:Optional
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 }
@@ -72,7 +81,7 @@ type InstanceProfileStatus struct {
 
 // +kubebuilder:object:root=true
 
-// InstanceProfile is the Schema for the InstanceProfiles API. <no value>
+// InstanceProfile is the Schema for the InstanceProfiles API. Provides an IAM instance profile.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

@@ -47,6 +47,9 @@ import (
 //go:embed schema.json
 var providerSchema string
 
+//go:embed provider-metadata.yaml
+var providerMetadata []byte
+
 // IncludedResources lists all resource patterns included in small set release.
 var IncludedResources = []string{
 	// Elastic Load Balancing v2 (ALB/NLB)
@@ -199,7 +202,7 @@ var skipList = []string{
 
 // GetProvider returns provider configuration
 func GetProvider() *tjconfig.Provider {
-	pc := tjconfig.NewProvider([]byte(providerSchema), "aws", "github.com/crossplane-contrib/provider-jet-aws", nil,
+	pc := tjconfig.NewProvider([]byte(providerSchema), "aws", "github.com/crossplane-contrib/provider-jet-aws", providerMetadata,
 		tjconfig.WithShortName("awsjet"),
 		tjconfig.WithRootGroup("aws.jet.crossplane.io"),
 		tjconfig.WithIncludeList(IncludedResources),

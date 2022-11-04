@@ -1,0 +1,16 @@
+apiVersion: eks.aws.jet.crossplane.io/v1alpha2
+kind: Addon
+metadata:
+  annotations:
+    meta.upbound.io/example-id: eks/v1alpha2/addon
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    clusterNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+
+---
+

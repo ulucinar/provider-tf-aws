@@ -26,6 +26,8 @@ import (
 )
 
 type VPCAssociationAuthorizationObservation struct {
+
+	// The calculated unique identifier for the association.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
@@ -36,6 +38,7 @@ type VPCAssociationAuthorizationParameters struct {
 	// +kubebuilder:validation:Required
 	Region *string `json:"region" tf:"-"`
 
+	// The VPC to authorize for association with the private hosted zone.
 	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-jet-aws/apis/ec2/v1alpha2.VPC
 	// +kubebuilder:validation:Optional
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
@@ -48,9 +51,11 @@ type VPCAssociationAuthorizationParameters struct {
 	// +kubebuilder:validation:Optional
 	VPCIDSelector *v1.Selector `json:"vpcIdSelector,omitempty" tf:"-"`
 
+	// The VPC's region. Defaults to the region of the AWS provider.
 	// +kubebuilder:validation:Optional
 	VPCRegion *string `json:"vpcRegion,omitempty" tf:"vpc_region,omitempty"`
 
+	// The ID of the private hosted zone that you want to authorize associating a VPC with.
 	// +crossplane:generate:reference:type=Zone
 	// +kubebuilder:validation:Optional
 	ZoneID *string `json:"zoneId,omitempty" tf:"zone_id,omitempty"`
@@ -78,7 +83,7 @@ type VPCAssociationAuthorizationStatus struct {
 
 // +kubebuilder:object:root=true
 
-// VPCAssociationAuthorization is the Schema for the VPCAssociationAuthorizations API. <no value>
+// VPCAssociationAuthorization is the Schema for the VPCAssociationAuthorizations API. Authorizes a VPC in a different account to be associated with a local Route53 Hosted Zone
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

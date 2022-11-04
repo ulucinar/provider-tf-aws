@@ -35,7 +35,7 @@ spec:
     name: v1alpha2
     schema:
       openAPIV3Schema:
-        description: Policy is the Schema for the Policys API. <no value>
+        description: Policy is the Schema for the Policys API. Provides an IAM policy.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -64,18 +64,28 @@ spec:
               forProvider:
                 properties:
                   description:
+                    description: Description of the IAM policy.
                     type: string
                   name:
+                    description: The name of the policy.
                     type: string
                   namePrefix:
+                    description: Creates a unique name beginning with the specified
+                      prefix. Conflicts with name.
                     type: string
                   path:
+                    description: Path in which to create the policy. See IAM Identifiers
+                      for more information.
                     type: string
                   policy:
+                    description: The policy document. This is a JSON formatted string
                     type: string
                   tags:
                     additionalProperties:
                       type: string
+                    description: Map of resource tags for the IAM Policy. If configured
+                      with a provider default_tags configuration block present, tags
+                      with matching keys will overwrite those defined at the provider-level.
                     type: object
                 required:
                 - policy
@@ -257,14 +267,20 @@ spec:
               atProvider:
                 properties:
                   arn:
+                    description: The ARN assigned by AWS to this policy.
                     type: string
                   id:
+                    description: The ARN assigned by AWS to this policy.
                     type: string
                   policyId:
+                    description: The policy's ID.
                     type: string
                   tagsAll:
                     additionalProperties:
                       type: string
+                    description: A map of tags assigned to the resource, including
+                      those inherited from the provider default_tags configuration
+                      block.
                     type: object
                 type: object
               conditions:

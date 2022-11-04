@@ -1,0 +1,28 @@
+apiVersion: eks.aws.jet.crossplane.io/v1alpha2
+kind: NodeGroup
+metadata:
+  annotations:
+    meta.upbound.io/example-id: eks/v1alpha2/nodegroup
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    clusterNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    nodeRoleArnSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    scalingConfig:
+    - desiredSize: 1
+      maxSize: 1
+      minSize: 1
+    subnetIdsSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example[*]
+    updateConfig:
+    - maxUnavailable: 2
+
+---
+

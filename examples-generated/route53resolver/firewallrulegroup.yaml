@@ -1,0 +1,14 @@
+apiVersion: route53resolver.aws.jet.crossplane.io/v1alpha1
+kind: FirewallRuleGroup
+metadata:
+  annotations:
+    meta.upbound.io/example-id: route53resolver/v1alpha1/firewallrulegroup
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    name: example
+
+---
+

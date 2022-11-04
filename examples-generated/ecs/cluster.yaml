@@ -1,0 +1,16 @@
+apiVersion: ecs.aws.jet.crossplane.io/v1alpha2
+kind: Cluster
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ecs/v1alpha2/cluster
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    setting:
+    - name: containerInsights
+      value: enabled
+
+---
+

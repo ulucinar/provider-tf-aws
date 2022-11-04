@@ -1,0 +1,30 @@
+apiVersion: route53resolver.aws.jet.crossplane.io/v1alpha1
+kind: DNSSECConfig
+metadata:
+  annotations:
+    meta.upbound.io/example-id: route53resolver/v1alpha1/dnssecconfig
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    resourceId: ${aws_vpc.example.id}
+
+---
+
+apiVersion: ec2.aws.jet.crossplane.io/v1alpha2
+kind: VPC
+metadata:
+  annotations:
+    meta.upbound.io/example-id: route53resolver/v1alpha1/dnssecconfig
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    cidrBlock: 10.0.0.0/16
+    enableDnsHostnames: true
+    enableDnsSupport: true
+
+---
+

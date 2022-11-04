@@ -1,0 +1,48 @@
+apiVersion: iam.aws.jet.crossplane.io/v1alpha2
+kind: GroupPolicyAttachment
+metadata:
+  annotations:
+    meta.upbound.io/example-id: iam/v1alpha2/grouppolicyattachment
+  labels:
+    testing.upbound.io/example-name: test-attach
+  name: test-attach
+spec:
+  forProvider:
+    groupSelector:
+      matchLabels:
+        testing.upbound.io/example-name: group
+    policyArnSelector:
+      matchLabels:
+        testing.upbound.io/example-name: policy
+
+---
+
+apiVersion: iam.aws.jet.crossplane.io/v1alpha2
+kind: Group
+metadata:
+  annotations:
+    meta.upbound.io/example-id: iam/v1alpha2/grouppolicyattachment
+  labels:
+    testing.upbound.io/example-name: group
+  name: group
+spec:
+  forProvider: {}
+
+---
+
+apiVersion: iam.aws.jet.crossplane.io/v1alpha2
+kind: Policy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: iam/v1alpha2/grouppolicyattachment
+  labels:
+    testing.upbound.io/example-name: policy
+  name: policy
+spec:
+  forProvider:
+    description: A test policy
+    name: test-policy
+    policy: '{ ... policy JSON ... }'
+
+---
+

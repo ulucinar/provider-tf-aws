@@ -31,6 +31,7 @@ type AlertManagerDefinitionObservation struct {
 
 type AlertManagerDefinitionParameters struct {
 
+	// the alert manager definition that you want to be applied. See more in AWS Docs.
 	// +kubebuilder:validation:Required
 	Definition *string `json:"definition" tf:"definition,omitempty"`
 
@@ -39,6 +40,7 @@ type AlertManagerDefinitionParameters struct {
 	// +kubebuilder:validation:Required
 	Region *string `json:"region" tf:"-"`
 
+	// The id of the prometheus workspace the alert manager definition should be linked to
 	// +kubebuilder:validation:Required
 	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
@@ -57,7 +59,7 @@ type AlertManagerDefinitionStatus struct {
 
 // +kubebuilder:object:root=true
 
-// AlertManagerDefinition is the Schema for the AlertManagerDefinitions API. <no value>
+// AlertManagerDefinition is the Schema for the AlertManagerDefinitions API. Manages an Amazon Managed Service for Prometheus (AMP) Alert Manager Definition
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
