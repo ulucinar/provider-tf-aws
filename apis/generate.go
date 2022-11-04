@@ -1,3 +1,4 @@
+//go:build generate
 // +build generate
 
 /*
@@ -27,6 +28,9 @@ limitations under the License.
 //go:generate bash -c "find . -type d -empty -delete"
 //go:generate bash -c "find ../internal/controller -iname 'zz_*' -delete"
 //go:generate bash -c "find ../internal/controller -type d -empty -delete"
+
+// Generate documentation from Terraform docs.
+//go:generate go run github.com/upbound/upjet/cmd/scraper -n hashicorp/terraform-provider-aws -r ../.work/terraform-provider-aws/website/docs/r -o ../config/provider-metadata.yaml
 
 // NOTE(muvaf): Some of Terraform AWS provider files have "!generate" build tag
 // that prevent us from using it for generator program.
